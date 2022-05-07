@@ -1,0 +1,11 @@
+# Prerequisites
+*.d
+
+# Object files
+*.o
+.vscode/
+.vscode
+
+# Execute File
+a.out
+*.dSYM
