@@ -28,9 +28,22 @@
 # define FALSE 0
 # define ERROR 2
 
+typedef struct s_node
+{
+	char			*str;
+	struct s_node	*next;
+}			t_node;
+
+typedef struct s_cmd
+{
+	t_node	*text;
+	t_node	*redi;
+}			t_cmd;
 typedef struct s_data
 {
-	
+    int			n_cmd;
+	t_cmd		*cmd_lst;
+    
 }		t_data;
 
 /*init.c*/
