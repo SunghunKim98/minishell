@@ -6,11 +6,11 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 02:28:10 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/18 08:40:35 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/19 03:36:09 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 static int	open_fd(char *file, int flag)
 {
@@ -25,11 +25,9 @@ static int	open_fd(char *file, int flag)
 	return (fd);
 }
 
-void	redirection(t_data *data, char *cmd, int i, int fd[])
+void	redirection(t_data *data, int i, int fd[])
 {
 	t_redi	*now;
-	char	**inout;
-	int		ret;
 
 	now = data->cmd_lst[i].redi;
 	while (now)

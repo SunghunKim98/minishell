@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:08:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/08 00:59:39 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/19 03:45:14 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,6 @@ void signalHandler(int sig)
 	}
 }
 */
-
-void	setting_env_things(t_data *p_data, char **envp)
-{
-	(void)(p_data);
-	(void)(envp);
-	return ;
-}
 
 void	error_util1()
 {
@@ -507,6 +500,7 @@ int		main(int argc, char **argv, char **envp)
 		return (0);
 	
 	setting_env_things(&data, envp);
+	
 
 	while (1)
 	{
@@ -517,6 +511,8 @@ int		main(int argc, char **argv, char **envp)
 			free(line);
 		else
 			start_with_the_line(line, &data);
+		printf("0");
+		execute_command(&data);
 	}
 
 

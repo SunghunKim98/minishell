@@ -6,11 +6,11 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 08:46:58 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/18 08:57:22 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/19 03:24:22 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 int	ft_strcmp(const char *s1, const char *s2)
 {

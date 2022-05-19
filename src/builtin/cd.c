@@ -6,13 +6,13 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 15:11:51 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/18 15:12:16 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/19 03:23:53 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	cd(t_data *data)
 {
-	
+	(void)data;
 }

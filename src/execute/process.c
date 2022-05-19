@@ -6,11 +6,11 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 06:29:25 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/16 06:34:32 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/19 03:47:01 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	init_process(t_data *data)
 {

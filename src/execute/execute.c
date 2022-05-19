@@ -6,11 +6,11 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 08:17:34 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/18 15:42:10 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/19 03:49:59 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	wait_child_processes(t_data *data)
 {
@@ -49,10 +49,11 @@ int		execve_command(t_data *data, int i)
 	cmd = to_arr(data->cmd_lst[i].args); // 명령어 + 옵션 들어있는 리스트 배열로 바꾸기
 	cmd_path = get_path(data->env_path, cmd[0]);
 	arrange_pipe_fd(data, cmd[0], i, fd); //dup2 함수 호출
-	if (is_builtin(cmd))
-		exec_builtin(data, cmd, i);
+	if (is_builtin(cmd[0]))
+		exec_builtin(data, cmd[0], i);
 	else
 		execve(cmd_path, cmd, data->env); // todo: env 저장 변수 이름 맞추기 pipex에서 env 파싱 가져오기
+	return (0); //todo: exit code 넣어주기
 }
 
 void	go_execute(t_data *data)
@@ -63,11 +64,14 @@ void	go_execute(t_data *data)
 	while (++i < data->n_cmd)
 	{
 		create_pipe(data, i);
-		fork_process(data);
+		fork_process(data, i);
+		printf("3");
 		/* 자식 프로세스 */
 		if (data->pid[i] == 0)
 		{
 			//todo: sigusr 설정하고 ignore 주기
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			exit(execve_command(data, i));
 		}
 		/* 부모 프로세스 */
@@ -86,6 +90,5 @@ void	execute_command(t_data *data)
 	init_process(data);
 	if (data->n_cmd > 1)
 		init_pipe(data);
-	
 	go_execute(data);
 }

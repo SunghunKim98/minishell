@@ -6,11 +6,11 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 06:13:22 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/16 16:25:57 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/19 03:24:15 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	malloc_error(void *addr)
 {

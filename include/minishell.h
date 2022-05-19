@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:09:41 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/17 05:15:24 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/19 03:36:16 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@
 # define _CANT_EXEC 126 // 파일이 존재하지만 실행 불가
 # define _NO_COMMAND 127 // 존재하지 않는 파일 또는 디렉토리
 
-# define R_S_RIDIRECT 1 // >
-# define R_D_RIDIRECT 2 // >>
-# define L_S_RIDIRECT 3 // <
-# define L_D_RIDIRECT 4 // <<
+# define R_S_REDIRECT 1 // >
+# define R_D_REDIRECT 2 // >>
+# define L_S_REDIRECT 3 // <
+# define L_D_REDIRECT 4 // <<
 
 int   g_exit_code;
 
@@ -60,6 +60,10 @@ typedef struct s_cmd
 }			t_cmd;
 typedef struct s_data
 {
+	char		**env;
+	char		**env_path;
+	int			**pipe_fd;
+	int			*pid;
     int			n_cmd;
 	t_cmd		*cmd_lst;
     
@@ -80,6 +84,20 @@ void   error_message(char *cmd, char *msg);
 void   arrange_pipe_fd(t_data *data, char *cmd, int i, int fd[]);
 void   execute_command(t_data *data);
 void   go_execute(t_data *data);
-int      execve_command(t_data *data, int i);
+int    execve_command(t_data *data, int i);
 void   wait_child_processes(t_data *data);
+
+void	setting_env_things(t_data *data, char **envp);
+int	ft_strcmp(const char *s1, const char *s2);
+char	**to_arr(t_args *cmd);
+char	*get_path(char **paths, char *cmd);
+void	init_process(t_data *data);
+void	init_pipe(t_data *data);
+void	create_pipe(t_data *data, int i);
+void	fork_process(t_data *data, int i);
+void	redirection(t_data *data, int i, int fd[]);
+int		is_builtin(char *cmd);
+void	exec_builtin(t_data *data, char *cmd, int i);
+
+
 #endif

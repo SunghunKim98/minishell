@@ -6,11 +6,11 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:04:28 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/18 15:20:31 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/19 03:26:05 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 /* 리스트로 된 명령어 + 옵션을 배열로 저장 */
 
@@ -34,18 +34,19 @@ char	**to_arr(t_args *cmd)
 	tmp = cmd;
 	while (++i < cnt)
 	{
-		cmd_arr[i] = ft_strdup(tmp);
+		cmd_arr[i] = ft_strdup(tmp->str);
 		malloc_error(cmd_arr[i]);
 		tmp = tmp->next;
 	}
 	cmd_arr[i] = NULL;
+	return (cmd_arr);
 }
 
 int	is_path_cmd(char *cmd_path)
 {
 	struct stat file_stat; // from <sys/stat.h>
 
-	if (ft_strncmp(cmd_path, '/', 1)) // /로 시작하지 않으면 return false
+	if (ft_strncmp(cmd_path, "/", 1)) // /로 시작하지 않으면 return false
 		return (FALSE);
 	if (stat(cmd_path, &file_stat) == ERROR)
 	{

@@ -6,11 +6,11 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 05:48:09 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/18 15:38:32 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/19 03:36:03 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	init_pipe(t_data *data)
 {
@@ -53,7 +53,7 @@ void	close_pipe(t_data *data)
 		if (data->pipe_fd[i][READ] != STDIN_FILENO)
 			close(data->pipe_fd[i][READ]);
 		if (data->pipe_fd[i][WRITE] != STDOUT_FILENO)
-			clode(data->pipe_fd[i][WRITE]);
+			close(data->pipe_fd[i][WRITE]);
 	}
 }
 
@@ -63,7 +63,7 @@ void	arrange_pipe_fd(t_data *data, char *cmd, int i, int fd[])
 
 	fd[READ] = data->pipe_fd[i - 1][READ];
 	fd[WRITE] = data->pipe_fd[i][WRITE];
-	redirection(data, cmd, i, fd);
+	redirection(data, i, fd);
 	//todo: ./minishell 처리
 	if (!is_builtin(cmd)) // 빌트인 명령어는 어차피 다 stdin, stdout으로 동작해서 dup2 필요없어..!(아마)
 	{

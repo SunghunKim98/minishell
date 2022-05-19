@@ -6,9 +6,9 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:11:26 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/16 14:11:32 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/19 03:24:22 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
