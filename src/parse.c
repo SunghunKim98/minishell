@@ -12,9 +12,9 @@
 
 #include "../include/minishell.h"
 
-int	parsing(char *line, t_data *data)
-{
-	if (1)
-		return (TRUE);
-	return (ERROR);
-}
+// int	parsing(char *line, t_data *data)
+// {
+// 	if (1)
+// 		return (TRUE);
+// 	return (ERROR);
+// }

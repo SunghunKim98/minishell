@@ -33,7 +33,7 @@ SRCS_DIR		= ./src/
 LIB_DIR			= ./lib/
 LIB_NAME		= ./lib/libft.a
 
-SRC		= main.c
+SRC		=	main.c
 
 SRCS	= $(addprefix $(SRCS_DIR), $(SRC))
 OBJS	= $(SRCS:.c=.o)
