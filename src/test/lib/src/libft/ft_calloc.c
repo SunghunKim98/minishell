@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/08 00:59:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/08 01:04:28 by soahn            ###   ########.fr       */
+/*   Created: 2021/01/06 03:06:12 by jisokang          #+#    #+#             */
+/*   Updated: 2021/06/23 19:29:41 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/libft.h"
 
-void	init_all(int *argc, char **argv, char **envp, t_data *data)
+void	*ft_calloc(size_t count, size_t size)
 {
+	void	*new;
 
+	new = malloc(count * size);
+	if (new == NULL)
+		return (NULL);
+	ft_bzero(new, (count * size));
+	return (new);
 }

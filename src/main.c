@@ -6,13 +6,13 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:08:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/19 03:45:14 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/23 23:53:22 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-
+int   g_exit_code;
 /*
 char *read_command_line()
 {
@@ -419,9 +419,9 @@ void	get_command_from_line(char **command_arr, t_data *p_data)
 	{
 		one_command = convert_line_to_command(command_arr[i]);
 
-		int	k = -1;
-		while (one_command[++k])
-			printf("{%s}\n", one_command[k]);
+		// int	k = -1;
+		// while (one_command[++k])
+		// 	printf("{%s}\n", one_command[k]);
 		
 		j = -1;
 		while (one_command[++j])
@@ -438,16 +438,16 @@ int		line_parsing(char *line, t_data *p_data)
 
 	processed_line = make_standard_line(line);
 
-	printf("processed_line: %s\n", processed_line);
+	// printf("processed_line: %s\n", processed_line);/
 
 	set_command_count(processed_line, p_data);
 	line_by_command = set_command_with_line(processed_line, p_data);
 
 
-	for (int i = 0; i < p_data->n_cmd; i++)
-	{
-		printf("%s\n", line_by_command[i]);
-	}
+	// for (int i = 0; i < p_data->n_cmd; i++)
+	// {
+	// 	printf("%s\n", line_by_command[i]);
+	// }
 	
 
 	// 여기서부터 다시 봐야 함.
@@ -466,27 +466,29 @@ void	start_with_the_line(char *line, t_data *p_data)
 		return ;
 	
 
-	t_args *p;
-	t_redi *q;
-	int	i = -1;
-	while (++i < p_data->n_cmd)
-	{
-		printf("---------------\n");
-		q = (p_data->cmd_lst[i]).redi;
-		while (q)
-		{
-			printf("flag: %d\n", q->flag);
-			printf("filename: %s\n", q->file_name);
-			q = q->next;
-		}
-		printf("***************\n");
-		p = (p_data->cmd_lst[i]).args;
-		while (p)
-		{
-			printf("%s\n", p->str);
-			p = p->next;
-		}
-	}
+	// t_args *p;
+	// t_redi *q;
+	// int	i = -1;
+	// while (++i < p_data->n_cmd)
+	// {
+	// 	printf("******%d*****\n", p_data->n_cmd);
+	// 	printf("---------------\n");
+	// 	q = (p_data->cmd_lst[i]).redi;
+	// 	while (q)
+	// 	{
+	// 		printf("flag: %d\n", q->flag);
+	// 		printf("filename: %s\n", q->file_name);
+	// 		q = q->next;
+	// 	}
+	// 	printf("***************\n");
+	// 	p = (p_data->cmd_lst[i]).args;
+	// 	while (p)
+	// 	{
+	// 		printf("%s\n", p->str);
+	// 		p = p->next;
+	// 		// printf("null ?");
+	// 	}
+	// }
 
 }
 
@@ -498,12 +500,15 @@ int		main(int argc, char **argv, char **envp)
 
 	if (!argc || !argv)
 		return (0);
-	
+	g_exit_code = 0;
+	init_all(&data);
 	setting_env_things(&data, envp);
 	
-
+	signal(SIGUSR1, execute_handler);
 	while (1)
 	{
+		signal(SIGINT, main_handler);
+		signal(SIGQUIT, SIG_IGN); // sigquit 무시
 		line = readline("minishell$ ");
 		if (!line)
 			error_util1();
@@ -511,7 +516,7 @@ int		main(int argc, char **argv, char **envp)
 			free(line);
 		else
 			start_with_the_line(line, &data);
-		printf("0");
+
 		execute_command(&data);
 	}
 

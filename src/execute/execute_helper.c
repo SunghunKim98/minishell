@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:04:28 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/19 03:26:05 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/19 06:45:12 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ char	*get_path(char **paths, char *cmd) // todo: data에 PATH 파싱해서 저�
 	while (paths[++i])
 	{
 		cmd_path = ft_strjoin(paths[i], cmd); //todo: paths저장할 때 맨 끝에 '/' 붙여서 저장 했는지 확인
+		// printf("cmd_path: %s\n", cmd_path);
 		if (!stat(cmd_path, &file_stat)) // 존재하는 파일이면 0 리턴
 			break ;
 		free(cmd_path);

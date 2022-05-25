@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/18 08:46:58 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/23 22:17:03 by soahn            ###   ########.fr       */
+/*   Created: 2022/05/21 17:53:21 by soahn             #+#    #+#             */
+/*   Updated: 2022/05/23 03:38:28 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+extern int	g_exit_code;
+
+int	export(t_data *data, char **cmd, int *fd)
 {
 	int	i;
 
-	i = 0;
-	if (!s1 && !s2)
-		return (0);
-	if (!s1)
-		return ((-1) * s2[0]);
-	if (!s2)
-		return (s1[0]);
-	while (s1[i] && s2[i])
+	i = 1;
+	if (!cmd[1]) // only export
 	{
-		if (s1[i] - s2[i] != 0)
-			return (s1[i] - s2[i]);
+		print_export(data, fd);
+		return (0);	
 	}
-	return (s1[i] - s2[i]);
-}
-
-int	ft_isspace(char c)
-{
-	if (c == '\t' || c == '\n' || c == '\v'\
-	|| c == '\f' || c == '\r' || c == ' ')
-		return (1);
-	else
-		return (0);
+	while (cmd[++i])
+	{
+		
+	}
 }

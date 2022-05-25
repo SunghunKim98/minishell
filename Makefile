@@ -6,7 +6,7 @@
 #    By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/21 00:17:03 by soahn             #+#    #+#              #
-#    Updated: 2022/05/19 03:18:56 by soahn            ###   ########.fr        #
+#    Updated: 2022/05/25 04:57:58 by soahn            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,9 +33,11 @@ SRCS_DIR		= ./src/
 LIB_DIR			= ./lib/
 LIB_NAME		= ./lib/libft.a
 
-SRC		=	main.c builtin/builtin.c builtin/cd.c error/error.c execute/execute_helper.c \
-			execute/execute.c execute/handler.c execute/pipe.c execute/process.c execute/redirection.c \
-			init/setting_env.c utility/utils.c
+SRC		=	main.c builtin/builtin_helper.c builtin/builtin.c builtin/cd.c builtin/echo.c builtin/exit.c builtin/pwd.c \
+			error/error.c \
+			execute/execute_helper.c execute/execute.c execute/handler.c execute/heredoc.c execute/pipe.c execute/process.c execute/redirection.c \
+			init/init.c init/setting_env.c \
+			utility/utils.c
 
 SRCS	= $(addprefix $(SRCS_DIR), $(SRC))
 OBJS	= $(SRCS:.c=.o)
