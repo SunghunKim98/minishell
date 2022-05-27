@@ -35,7 +35,7 @@ LIB_NAME		= ./lib/libft.a
 
 SRC		=	main.c builtin/builtin.c builtin/cd.c error/error.c execute/execute_helper.c \
 			execute/execute.c execute/handler.c execute/pipe.c execute/process.c execute/redirection.c \
-			init/setting_env.c utility/utils.c
+			init/setting_env.c utility/utils.c error/errorcheck.c check/check_case.c
 
 SRCS	= $(addprefix $(SRCS_DIR), $(SRC))
 OBJS	= $(SRCS:.c=.o)
