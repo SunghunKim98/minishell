@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 08:46:58 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/23 22:17:03 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/25 15:54:03 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	{
 		if (s1[i] - s2[i] != 0)
 			return (s1[i] - s2[i]);
+		i++;
 	}
 	return (s1[i] - s2[i]);
 }

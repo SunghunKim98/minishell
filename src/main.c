@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:08:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/23 23:53:22 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/26 14:53:15 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -510,6 +510,7 @@ int		main(int argc, char **argv, char **envp)
 		signal(SIGINT, main_handler);
 		signal(SIGQUIT, SIG_IGN); // sigquit 무시
 		line = readline("minishell$ ");
+		// line = ft_strdup("pwd");
 		if (!line)
 			error_util1();
 		else if (!*line)

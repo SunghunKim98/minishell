@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 08:43:56 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/23 22:19:41 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/25 08:33:41 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ extern int	g_exit_code;
 
 int	is_builtin(char *cmd)
 {
-	return (FALSE); //todo: 빌트인 구현하고 삭제
 	if (!ft_strcmp(cmd, "echo")
 		|| !ft_strcmp(cmd, "cd")
 		|| !ft_strcmp(cmd, "pwd")
@@ -26,12 +25,13 @@ int	is_builtin(char *cmd)
 		|| !ft_strcmp(cmd, "exit")) //todo: handle register cmd
 		return (TRUE);
 	printf("not builtin\n");
-	return (FALSE);	
+	return (FALSE);
 }
 
 void	exec_builtin(t_data *data, char **cmd, int *fd)
 {
 	//todo
+	printf("builtin: %s\n", cmd[0]);
 	if (!ft_strcmp(cmd[0], "echo"))
 		g_exit_code = echo(cmd, fd);
 	else if (!ft_strcmp(cmd[0], "cd"))
@@ -45,5 +45,8 @@ void	exec_builtin(t_data *data, char **cmd, int *fd)
 	// else if (!ft_strcmp(cmd[0], "env"))
 	// 	g_exit_code = env(data, fd);
 	else if (!ft_strcmp(cmd[0], "exit"))
+	{
+		printf("go_exit.....\n");
 		g_exit_code = go_exit(data, cmd);
+	}
 }

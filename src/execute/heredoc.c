@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 00:08:44 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/25 05:08:32 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/25 07:48:54 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	heredoc_count(t_data *data)
 	return (cnt);
 }
 
-int	write_from_stdin(char *limiter, int fd[])
+void	write_from_stdin(char *limiter, int fd[])
 {
 	char	*in;
 
@@ -47,8 +47,9 @@ int	write_from_stdin(char *limiter, int fd[])
 			break ;
 		ft_putendl_fd(in, fd[WRITE]);
 		free(in);
+		printf("read?\n");
 	}
-	exit(0);
+	printf("go exit");
 }
 
 int	save_if_here_doc(t_data *data, t_redi *now)
@@ -66,13 +67,20 @@ int	save_if_here_doc(t_data *data, t_redi *now)
 		pid = fork();
 		if (pid > 0)
 		{
+			printf("i am parent\n");
 			signal(SIGINT, SIG_IGN);
+			printf("wait\n");
 			wait(&status);
+			printf("waiting\n");
 			if (WEXITSTATUS(status) == 1) // heredoc에서 ctrl c 눌렀을 때 exit code 1
 				return (ERROR);
 		}
 		else if (!pid)
+		{
+			printf("i am child\n");
 			write_from_stdin(limiter, fd);
+			
+		}
 		close(fd[WRITE]);
 		data->heredoc.pipe_read[data->heredoc.seq++] = fd[READ];
 		return (fd[READ]);
@@ -97,6 +105,7 @@ int	heredoc_main(t_data *data)
 			if (save_if_here_doc(data, now) == ERROR)
 				return (ERROR);
 			now = now->next;
+			printf("going\n");
 		}
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 08:17:34 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/25 04:47:36 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/25 17:04:01 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,14 @@ int		execve_command(t_data *data, int i)
 
 	cmd = to_arr(data->cmd_lst[i].args); // 명령어 + 옵션 들어있는 리스트 배열로 바꾸기
 	cmd_path = get_path(data->env_path, cmd[0]);
-	// printf("path done\n");
+	printf("path done\n");
 	arrange_pipe_fd(data, cmd[0], i, fd); //dup2 함수 호출//문제여
-	// printf("pipe done\n");
+	printf("pipe done\n");
 	if (is_builtin(cmd[0]))
 		exec_builtin(data, cmd, fd);
 	else
 	{
+		kill(0, SIGUSR1);
 		// printf("%s | %s \n", cmd_path, cmd[0]);
 		execve(cmd_path, cmd, data->env); // todo: env 저장 변수 이름 맞추기 pipex에서 env 파싱 가져오기
 	}
@@ -91,8 +92,6 @@ static void	go_execute(t_data *data, int i)
 
 void	execute_command(t_data *data)
 {
-	int	fd[2];
-
 	init_process(data);
 	if (data->n_cmd > 1)
 		init_pipe(data);
@@ -102,8 +101,7 @@ void	execute_command(t_data *data)
 	data->heredoc.seq = 0;
 	if (is_builtin(to_arr(data->cmd_lst[0].args)[0]) && (data->n_cmd == 1))
 	{
-		fd[READ] = STDIN_FILENO;
-		fd[WRITE] = STDOUT_FILENO;
+		printf("i am builtin\n");
 		execve_command(data, 0);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:09:41 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/25 05:06:09 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/26 16:52:12 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,7 @@ int		ft_isspace(char c);
 
 int	heredoc_main(t_data *data);
 int	heredoc_count(t_data *data);
+
+void	free_split_one(char **arr);
 
 #endif

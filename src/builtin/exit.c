@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 03:42:54 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/23 21:38:13 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/25 08:16:32 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	go_exit(t_data *data, char **cmd) // unsigned char 로 내보내야 함
 {
 	unsigned char	code;
 
+	printf("n_cmd %d\n", data->n_cmd);
 	if (data->n_cmd == 1)
 		ft_putendl_fd("exit", STDOUT_FILENO);
 	if (!cmd[1])

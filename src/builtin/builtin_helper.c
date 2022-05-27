@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 17:43:55 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/23 22:15:11 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/26 17:24:37 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,31 @@ void	print_export(t_data *data, int *fd) //환경변수 목록 정렬해서 출�
 	while (sorted_env[++i])
 		free(sorted_env[i]);
 	free(sorted_env);
+}
+
+char	**env_dict(char *s)
+{
+	int		key_len;
+	char	*equal;
+	char	**env_dict;
+
+	env_dict = (char **)malloc(sizeof(char *) * 3); // key, value, null
+	malloc_error(env_dict);
+	equal = ft_strchr(s, '=');
+	key_len = s - equal + 1;
+	if (!equal)
+		key_len = ft_strlen(s) + 1;
+	env_dict[0] = (char *)malloc(sizeof(char) * (key_len));
+	malloc_error(env_dict[0]);
+	ft_strlcpy(env_dict[0], s, (key_len));
+	if (equal)
+		env_dict[1] = ft_strdup(equal + 1); // 환경변수 값 저장
+	else
+	{
+		env_dict[1] = (char *)malloc(sizeof(char));
+		env_dict[1][0] = '\0';
+	}
+	malloc_error(env_dict[1]);
+	env_dict[2] = NULL;
+	return (env_dict);
 }
