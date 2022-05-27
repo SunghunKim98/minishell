@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 05:48:09 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/19 03:36:03 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/23 23:20:02 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_pipe(t_data *data)
 	i = -1;
 	data->pipe_fd = (int **)malloc(sizeof(int *) * (data->n_cmd - 1));
 	malloc_error(data->pipe_fd);
-	while (++i < data->n_cmd)
+	while (++i < data->n_cmd - 1)
 	{
 		data->pipe_fd[i] = (int *)malloc(sizeof(int) * 2);
 		malloc_error(data->pipe_fd[i]);
@@ -61,16 +61,35 @@ void	arrange_pipe_fd(t_data *data, char *cmd, int i, int fd[])
 {
 	int		ret;
 
-	fd[READ] = data->pipe_fd[i - 1][READ];
-	fd[WRITE] = data->pipe_fd[i][WRITE];
+	// pipe 연결이 똑바로 안 됨!! 이제 되는듯!! 근데 프로세스 종료가 안됨!!
+	ret = 0;
+	if (i != 0)
+		fd[READ] = data->pipe_fd[i - 1][READ];
+	else
+		fd[READ] = STDIN_FILENO;
+	if (i != data->n_cmd - 1)
+		fd[WRITE] = data->pipe_fd[i][WRITE];
+	else
+		fd[WRITE] = STDOUT_FILENO;
+	// printf("cmd: %s\n", cmd);
+	// printf("fd: read: %d, fd: write: %d\n", fd[READ], fd[WRITE]);
 	redirection(data, i, fd);
+	// printf("redi done\n");
 	//todo: ./minishell 처리
-	if (!is_builtin(cmd)) // 빌트인 명령어는 어차피 다 stdin, stdout으로 동작해서 dup2 필요없어..!(아마)
+	// printf("is builtin : %d\n", is_builtin(cmd));
+	if (!is_builtin(cmd)) // 빌트인 명령어는 부모 프로세스에서 실행
 	{
+		// printf("5");
 		if (fd[READ] != STDIN_FILENO)
+		{
+			// printf("read dup2: %d <-> STDIN\n", fd[READ]);
 			ret = dup2(fd[READ], STDIN_FILENO);
+		}
 		if (fd[WRITE] != STDOUT_FILENO)
+		{
+			// printf("write dup2: %d <-> STDOUT\n", fd[WRITE]);
 			ret = dup2(fd[WRITE], STDOUT_FILENO);
+		}
 		if (ret < 0)
 		{
 			ft_putendl_fd(strerror(errno), STDERR_FILENO);

@@ -1,3 +1,5 @@
+pipe done
+not builtin
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -37,7 +39,7 @@ LIB_NAME		= ./lib/libft.a
 SRC		=	main.c builtin/builtin_helper.c builtin/builtin.c builtin/cd.c builtin/echo.c builtin/exit.c builtin/pwd.c \
 			error/error.c \
 			execute/execute_helper.c execute/execute.c execute/handler.c execute/heredoc.c execute/pipe.c execute/process.c execute/redirection.c \
-			init/init.c init/setting_env.c error/errorcheck.c check/check_case.c \
+			init/init.c init/setting_env.c \
 			utility/utils.c
 
 SRCS	= $(addprefix $(SRCS_DIR), $(SRC))

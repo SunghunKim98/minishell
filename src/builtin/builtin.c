@@ -6,11 +6,13 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 08:43:56 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/19 03:21:49 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/25 08:33:41 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+extern int	g_exit_code;
 
 int	is_builtin(char *cmd)
 {
@@ -22,28 +24,29 @@ int	is_builtin(char *cmd)
 		|| !ft_strcmp(cmd, "env")
 		|| !ft_strcmp(cmd, "exit")) //todo: handle register cmd
 		return (TRUE);
-	return (FALSE);	
+	printf("not builtin\n");
+	return (FALSE);
 }
 
-void	exec_builtin(t_data *data, char *cmd, int i)
+void	exec_builtin(t_data *data, char **cmd, int *fd)
 {
-	(void)data;
-	(void)cmd;
-	(void)i;
-	
 	//todo
-	// if (!ft_strcmp(cmd, "echo"))
-	// 	echo(data);
-	// else if (!ft_strcmp(cmd, "cd"))
-	// 	cd(data);
-	// else if (!ft_strcmp(cmd, "pwd"))
-	// 	pwd(data);
-	// else if (!ft_strcmp(cmd, "export"))
-	// 	export(data);
-	// else if (!ft_strcmp(cmd, "unset"))
-	// 	unset(data);
-	// else if (!ft_strcmp(cmd, "env"))
-	// 	env(data);
-	// else if (!ft_strcmp(cmd, "exit"))
-	// 	go_exit(data);
+	printf("builtin: %s\n", cmd[0]);
+	if (!ft_strcmp(cmd[0], "echo"))
+		g_exit_code = echo(cmd, fd);
+	else if (!ft_strcmp(cmd[0], "cd"))
+		g_exit_code = cd(data, cmd[1]);
+	else if (!ft_strcmp(cmd[0], "pwd"))
+		g_exit_code = pwd(fd);
+	// else if (!ft_strcmp(cmd[0], "export"))
+	// 	g_exit_code = export(data, cmd, fd); //todo: 미완 .. 할게 많다..^^
+	// else if (!ft_strcmp(cmd[0], "unset"))
+	// 	g_exit_code = unset(data, fd);
+	// else if (!ft_strcmp(cmd[0], "env"))
+	// 	g_exit_code = env(data, fd);
+	else if (!ft_strcmp(cmd[0], "exit"))
+	{
+		printf("go_exit.....\n");
+		g_exit_code = go_exit(data, cmd);
+	}
 }

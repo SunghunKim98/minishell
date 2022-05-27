@@ -6,13 +6,13 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:08:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/19 03:45:14 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/26 14:53:15 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-
+int   g_exit_code;
 /*
 char *read_command_line()
 {
@@ -823,9 +823,9 @@ void	get_command_from_line(char **command_arr, t_data *p_data)
 	{
 		one_command = convert_line_to_command(command_arr[i]);
 
-		int	k = -1;
-		while (one_command[++k])
-			printf("{%s}\n", one_command[k]);
+		// int	k = -1;
+		// while (one_command[++k])
+		// 	printf("{%s}\n", one_command[k]);
 		
 		j = -1;
 		while (one_command[++j])
@@ -844,17 +844,17 @@ int		line_parsing(char *line, t_data *p_data)
 
 	processed_line = make_standard_line(line, p_data);
 
-	printf("processed_line: %s\n", processed_line);
+	// printf("processed_line: %s\n", processed_line);/
 
 
 	set_command_count(processed_line, p_data);
 	line_by_command = set_command_with_line(processed_line, p_data);
 
 
-	for (int i = 0; i < p_data->n_cmd; i++)
-	{
-		printf("cmd_%d: %s\n", i, line_by_command[i]);
-	}
+	// for (int i = 0; i < p_data->n_cmd; i++)
+	// {
+	// 	printf("%s\n", line_by_command[i]);
+	// }
 	
 
 	get_command_from_line(line_by_command, p_data);
@@ -926,12 +926,17 @@ int		main(int argc, char **argv, char **envp)
 
 	if (!argc || !argv)
 		return (0);
-	
+	g_exit_code = 0;
+	init_all(&data);
 	setting_env_things(&data, envp);
 	
+	signal(SIGUSR1, execute_handler);
 	while (1)
 	{
+		signal(SIGINT, main_handler);
+		signal(SIGQUIT, SIG_IGN); // sigquit 무시
 		line = readline("minishell$ ");
+		// line = ft_strdup("pwd");
 		if (!line)
 			error_util1();
 		else if (!*line)
