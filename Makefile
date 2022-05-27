@@ -19,12 +19,12 @@ CFLAGS	= -Wall -Werror -Wextra -g
 # todo: -g 옵션 제거
 
 # cluster
-LDFLAGS = -L${HOME}/.brew/opt/readline/lib
-CPPFLAGS= -I${HOME}/.brew/opt/readline/include
+# LDFLAGS = -L${HOME}/.brew/opt/readline/lib
+# CPPFLAGS= -I${HOME}/.brew/opt/readline/include
 
 # soahn home
-# LDFLAGS = -L/usr/local/opt/readline/lib
-# CPPFLAGS= -I/usr/local/opt/readline/include
+LDFLAGS = -L/usr/local/opt/readline/lib
+CPPFLAGS= -I/usr/local/opt/readline/include
 
 AR 		= ar rcs
 RM		= rm -f
