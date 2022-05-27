@@ -6,7 +6,7 @@
 /*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:09:41 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/27 18:15:10 by sungkim          ###   ########.fr       */
+/*   Updated: 2022/05/27 20:03:42 by sungkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,6 @@
 # define SUCCESS 1
 
 #define BUFF_SIZE 10000
-
-typedef struct s_env
-{
-	char			*key;
-	char			*value;
-	int				env_flag;
-	struct s_env	*next;
-	struct s_env	*prev;
-}			t_env;
-
-typedef struct s_env_deq
-{
-	int		size;
-	t_env	*head;
-	t_env	*last;
-}			t_env_deq;
-
-typedef struct s_exit
-{
-	int	code;
-	int	sig_flag;
-}			t_exit;
 
 // -------------------
 
@@ -94,6 +72,28 @@ typedef struct s_here
 	int		seq; // 현재 sequence
 	int		n_here; // 전체 개수
 }			t_here;
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	int				env_flag;
+	struct s_env	*next;
+	struct s_env	*prev;
+}			t_env;
+
+typedef struct s_env_deq
+{
+	int		size;
+	t_env	*head;
+	t_env	*last;
+}			t_env_deq;
+
+typedef struct s_exit
+{
+	int	code;
+	int	sig_flag;
+}			t_exit;
 
 typedef struct s_data
 {

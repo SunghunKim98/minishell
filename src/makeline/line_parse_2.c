@@ -11,7 +11,7 @@ char	*trim_line(int *start, int divider, char *line, t_data *p_data)
 	if (!new_line)
 		exit(-1);
 
-	new_line = join_strings(new_line, result, start); // 여기서 문제
+	new_line = join_strings(new_line, result, start);
 	double_char_array_free(result);
 	return (new_line);
 }

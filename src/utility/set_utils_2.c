@@ -13,7 +13,7 @@ void	set_env(char **line, int *i, t_data *p_data)
 	{
 		(*i)++;
 		env = advanced_itoa(10);
-		// env = advanced_itoa(g_exit.code); // exit_code ??
+		// env = advanced_itoa(g_exit_code); // exit_code ??
 	}
 	else
 		env = parse_env_after_dollar(line, i, p_data);
