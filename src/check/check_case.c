@@ -38,7 +38,6 @@ int		check_case_other(char *p)
 	return SUCCESS;
 }
 
-
 int		check_different_case(char *p)
 {
 	if (!check_case_pipe(p))
@@ -49,4 +48,15 @@ int		check_different_case(char *p)
 		return FAIL;
 	else
 		return TRUE;
+}
+
+int		check_quoto_closed(int flag_sq, int flag_dq)
+{
+	if (!flag_sq && !flag_dq)
+		return SUCCESS;
+	else
+	{
+		printf("There's unclose quote\n");
+		return FAIL;
+	}
 }
