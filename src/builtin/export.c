@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:53:21 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/26 17:59:38 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/27 06:26:38 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,16 @@ int		incorrect_env(char *key)
 {
 	int	i;
 
-	i = 0;
-	if (!(ft_isalpha(key[i]) || key[i] == '_'))
+	if (!ft_strcmp(key, "_"))
 		return (TRUE);
-	while ()
+	i = 0;
+	if (ft_isalpha(key[i]))
+		return (TRUE);
+	while (ft_isalnum(key[i]))
+		++i;
+	if (key[i] == '\0')
+		return (FALSE);
+	return (TRUE);
 }
 
 void	add_env(t_data *data, char **env, int key_len)
@@ -111,8 +117,8 @@ int	export(t_data *data, char **cmd, int *fd)
 		env = env_dict(cmd[i]);
 		if (incorrect_env(env[0]))
 		{
-			g_exit_code = 1;
 			error_message_arg("export", env[0], "not a valid identifier");
+			g_exit_code = 1;
 		}
 		key_len = ft_strlen(env[0]);
 		if (check_new(data, env, key_len))

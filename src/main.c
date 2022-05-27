@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:08:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/26 14:53:15 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/27 00:20:53 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -946,7 +946,7 @@ int		main(int argc, char **argv, char **envp)
 			if (!start_with_the_line(line, &data))
 				continue;
 		}
-		// execute_command(&data);
+		execute_command(&data);
 	}
 
 

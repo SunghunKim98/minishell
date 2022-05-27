@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 08:43:56 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/25 08:33:41 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/27 06:26:17 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ void	exec_builtin(t_data *data, char **cmd, int *fd)
 		g_exit_code = cd(data, cmd[1]);
 	else if (!ft_strcmp(cmd[0], "pwd"))
 		g_exit_code = pwd(fd);
-	// else if (!ft_strcmp(cmd[0], "export"))
-	// 	g_exit_code = export(data, cmd, fd); //todo: 미완 .. 할게 많다..^^
+	else if (!ft_strcmp(cmd[0], "export"))
+		g_exit_code = export(data, cmd, fd); //todo: 미완 .. 할게 많다..^^
 	// else if (!ft_strcmp(cmd[0], "unset"))
 	// 	g_exit_code = unset(data, fd);
-	// else if (!ft_strcmp(cmd[0], "env"))
-	// 	g_exit_code = env(data, fd);
+	else if (!ft_strcmp(cmd[0], "env"))
+		g_exit_code = env(data, fd);
 	else if (!ft_strcmp(cmd[0], "exit"))
 	{
 		printf("go_exit.....\n");
