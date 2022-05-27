@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:08:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/27 20:05:05 by sungkim          ###   ########.fr       */
+/*   Updated: 2022/05/27 20:19:23 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ int		main(int argc, char **argv, char **envp)
 			if (!start_with_the_line(line, &data))
 				continue;
 		}
-		// execute_command(&data);
+		execute_command(&data);
 	}
 
 
