@@ -1,5 +1,4 @@
-
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 char	*find_pointer_for_separation(char *start)
 {
@@ -41,6 +40,11 @@ char	*strdup_with_pointer(char *start, char *end)
 		*tmp = 0;
 		return (p);
 	}
+	else if ((*start == '\"' && *(end - 1) == '\"') || (*start == '\'' && *(end - 1) == '\''))
+	{
+		if ((start++) == (end--) - 1)
+			return (0);
+	}
 	p = (char*)malloc(sizeof(char) * (end - start + 3));
 	tmp = p;
 	*(tmp++) = '\"';
@@ -51,26 +55,34 @@ char	*strdup_with_pointer(char *start, char *end)
 	return (p);
 }
 
-char	*make_standard_line(char *line)
+int		check_if_sep(char ch)
 {
-	char	*p;
-	char	*tmp;
-	char	*standard_line;
+	if (!ch)
+		return (1);
+	if (ch == ' ' || ch == '|' || ch == '>' || ch == '<')
+		return (1);
+	return (0);
+}
 
-	p = line;
-	standard_line = 0;
-	while (1)
-	{
-		while (*p == ' ')
-			p++;
-		tmp = p;
-		p = find_pointer_for_separation(tmp);
-		standard_line = ft_strjoin(standard_line, strdup_with_pointer(tmp, p)); // strjoin안에서 free하겠지?
-		if (*p == 0)
-			break;
-		else
-			p++;
-	}
+char	*trim_space_line(char *line, int start)
+{
+	int		i;
+	char	*line_0;
+	char	*line_1;
+	char	*new_line;
+
+	if (line[start] != ' ')
+		return (line);
+	i = start;
+	if (line[i] == ' ')
+		i++;
+	line_0 = advanced_strlcpy(line, start);
+	line_1 = advanced_strdup_no_free(line + i);
+
+	new_line = ft_strjoin(line_0, line_1);
+	// 여기서 line_0, line_1 free를 join에서 하는가? => 아닌 것 같다.
 	free(line);
-	return (standard_line);
+	free(line_0);
+	free(line_1);
+	return (new_line);
 }

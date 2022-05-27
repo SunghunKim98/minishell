@@ -48,3 +48,9 @@ int		check_error_case_1(char *line)
 	}
 	return (check_quoto_closed(flag_sq, flag_dq));
 }
+
+int		deal_error(int i)
+{
+	printf("There's something Error_%d\n", i);
+	return FAIL;
+}

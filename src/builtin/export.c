@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:53:21 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/27 06:26:38 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/27 06:41:06 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	export(t_data *data, char **cmd, int *fd)
 	if (!cmd[1]) // only export
 	{
 		print_export(data, fd);
-		return (0);	
+		return (0);
 	}
 	while (cmd[++i])
 	{
