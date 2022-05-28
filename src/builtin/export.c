@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:53:21 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/26 17:59:38 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/27 20:30:19 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ int		incorrect_env(char *key)
 {
 	int	i;
 
-	i = 0;
-	if (!(ft_isalpha(key[i]) || key[i] == '_'))
+	if (!ft_strcmp(key, "_"))
 		return (TRUE);
-	while ()
+	i = 0;
+	while ((ft_isalpha(key[i]) || key[i]))
 }
 
 void	add_env(t_data *data, char **env, int key_len)
@@ -104,7 +104,7 @@ int	export(t_data *data, char **cmd, int *fd)
 	if (!cmd[1]) // only export
 	{
 		print_export(data, fd);
-		return (0);	
+		return (0);
 	}
 	while (cmd[++i])
 	{
