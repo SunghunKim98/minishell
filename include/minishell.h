@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:09:41 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/27 07:40:10 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/29 03:37:59 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_here
 typedef struct s_data
 {
 	char		**env;
+	int			n_env;
 	char		**env_path;
 	char		*home;
 	int			**pipe_fd;
@@ -224,6 +225,11 @@ void	print_export(t_data *data, int *fd);
 char	**env_dict(char *s);
 void	ft_print_double_str(char **str);
 void	double_char_array_free(char **arr);
+int		incorrect_env(char *key);
+char	**set_data_env(int n_env, char **envp);
+int		get_double_string_len(char **str);
+int		get_env_index(t_data *data, char *key, int key_len);
+int	unset(t_data *data, char **cmd);
 
 //성훈 추가
 

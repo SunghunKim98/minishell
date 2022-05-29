@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:53:21 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/27 10:12:25 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/29 03:30:50 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,13 @@
 
 extern int	g_exit_code;
 
-int		check_new(t_data *data, char **env, int key_len)
-{
-	char	**prev_env;
-	char	*now;
-	int		i;
-
-	prev_env = data->env;
-	i = -1;
-	while (prev_env[++i])
-	{
-		now = prev_env[i];
-		while (now && ft_strncmp(now, "=", 1) && ft_strncmp(now, env[0], key_len)) // key 찾기
-			++now;
-		if (!now || !ft_strncmp(now, "=", 1)) // 끝까지 갔거나 =를 만난 경우
-			continue ;
-		return (FALSE);
-	}
-	return (TRUE);
-}
-
 void	add_new_env(t_data *data, char **env)
 {
 	int		len;
 	int		i;
 	char	**new_env;
 	char	*key_with_equal;
+	char	**tmp;
 
 	len = -1;
 	while (data->env[++len])
@@ -53,53 +34,32 @@ void	add_new_env(t_data *data, char **env)
 	key_with_equal = ft_strjoin(env[0], "=");
 	new_env[i] = ft_strdup(ft_strjoin(key_with_equal, env[1]));
 	free(key_with_equal);
-	// double_char_array_free(data->env);
+	tmp = data->env;
 	data->env = new_env;
+	printf("free err here??\n");
+	double_char_array_free(tmp);
+	data->n_env++;
 }
 
-int		incorrect_env(char *key)
+void	replace_env(t_data *data, char *env, int replace_idx)
 {
-	int	i;
-
-	if (!key)
-		return (TRUE);
-	if (!ft_strcmp(key, "_"))
-		return (TRUE);
-	i = 0;
-	if (ft_isdigit(key[i]))
-		return (TRUE);
-	while (ft_isalnum(key[i]))
-		++i;
-	if (key[i] == '\0')
-		return (FALSE);
-	return (TRUE);
-}
-
-void	add_env(t_data *data, char **env, int key_len)
-{
-	char	**prev_env;
-	char	*now;
 	int		i;
-	char	*new;
+	char	**new_env;
+	char	**tmp;
 
-	printf("add new env, key : %s\n", env[0]);
-	prev_env = data->env;
+	//싹 다 free 하고 다시 malloc, 저장
+	new_env = (char **)malloc(sizeof(char *) * (data->n_env + 1));
 	i = -1;
-	while (prev_env[++i])
+	while (data->env[++i])
 	{
-		now = prev_env[i];
-		while (now && ft_strncmp(now, "=", 1) && ft_strncmp(now, env[0], key_len)) // key 찾기
-			++now;
-		if (!now || !ft_strncmp(now, "=", 1)) // 끝까지 갔거나 =를 만난 경우
-			continue ;
-		break ; // 찾았다 (오마이걸)
+		if (i == replace_idx)
+			new_env[i] = ft_strdup(env);
+		else
+			new_env[i] = ft_strdup(data->env[i]);
 	}
-	if (!prev_env[i])
-	{
-		new = ft_strdup(prev_env[i]);
-		free(prev_env[i]);
-		prev_env[i] = new;
-	}
+	tmp = data->env;
+	data->env = new_env;
+	double_char_array_free(tmp);
 }
 
 int	export(t_data *data, char **cmd, int *fd)
@@ -107,6 +67,7 @@ int	export(t_data *data, char **cmd, int *fd)
 	int		i;
 	char	**env;
 	int		key_len;
+	int		replace_idx;
 
 	printf("now export\n");
 	if (!cmd[1]) // only export
@@ -128,10 +89,11 @@ int	export(t_data *data, char **cmd, int *fd)
 		else
 		{
 			key_len = ft_strlen(env[0]);
-			if (check_new(data, env, key_len))
+			replace_idx = get_env_index(data, env[0], key_len);
+			if (replace_idx < 0)
 				add_new_env(data, env);
 			else
-				add_env(data, env, key_len);
+				replace_env(data, cmd[i], replace_idx);
 		}
 		double_char_array_free(env);
 	}

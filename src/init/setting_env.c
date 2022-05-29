@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setting_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 03:13:25 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/27 20:42:19 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/29 03:05:33 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	parse_env_home(t_data *data, char **envp)
 
 void	setting_env_things(t_data *data, char **envp)
 {
-	data->env = envp;
-	parse_env_home(data, envp); // for cd ~
-	parse_env_path(data, envp);  // for exec
+	data->n_env = get_double_string_len(envp);
+	data->env = set_data_env(data->n_env, envp); // 이거 동적할당으로 저장해줘야 나중에 오류 안남!!
+	parse_env_home(data, data->env); // for cd ~
+	parse_env_path(data, data->env);  // for exec
 }

@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 08:46:58 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/27 07:19:10 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/28 22:05:12 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,14 @@ void	ft_print_double_str(char **str)
 	while (str[++i])
 		ft_putendl_fd(str[i], 1);
 	ft_putendl_fd("#######################################", 1);
+}
+
+int		get_double_string_len(char **str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		;
+	return (i);
 }

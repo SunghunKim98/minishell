@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 17:43:55 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/27 10:28:44 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/28 21:35:06 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,22 @@ char	**env_dict(char *s)
 	env_dict[2] = NULL;
 	ft_print_double_str(env_dict);
 	return (env_dict);
+}
+
+int		incorrect_env(char *key)
+{
+	int	i;
+
+	if (!key)
+		return (TRUE);
+	if (!ft_strcmp(key, "_"))
+		return (TRUE);
+	i = 0;
+	if (ft_isdigit(key[i]))
+		return (TRUE);
+	while (ft_isalnum(key[i]))
+		++i;
+	if (key[i] == '\0')
+		return (FALSE);
+	return (TRUE);
 }

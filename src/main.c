@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:08:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/27 06:47:32 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/29 04:00:42 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ int		main(int argc, char **argv, char **envp)
 		signal(SIGINT, main_handler);
 		signal(SIGQUIT, SIG_IGN); // sigquit 무시
 		line = readline("minishell$ ");
+		// line = ft_strdup("export HOME=wow");
 		if (!line)
 			error_util1();
 		else if (!*line)
@@ -152,6 +153,7 @@ int		main(int argc, char **argv, char **envp)
 				continue;
 		}
 		execute_command(&data);
+		system("leaks minishell");
 	}
 
 
