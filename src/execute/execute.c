@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 08:17:34 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/25 17:04:01 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/29 05:19:27 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ int		execve_command(t_data *data, int i)
 
 	cmd = to_arr(data->cmd_lst[i].args); // 명령어 + 옵션 들어있는 리스트 배열로 바꾸기
 	cmd_path = get_path(data->env_path, cmd[0]);
-	printf("path done\n");
+	// printf("path done\n");
 	arrange_pipe_fd(data, cmd[0], i, fd); //dup2 함수 호출//문제여
-	printf("pipe done\n");
+	// printf("pipe done\n");
 	if (is_builtin(cmd[0]))
 		exec_builtin(data, cmd, fd);
 	else
@@ -70,19 +70,17 @@ static void	go_execute(t_data *data, int i)
 		return ;
 	create_pipe(data, i);
 	fork_process(data, i);
-	// printf("3");
 	/* 자식 프로세스 */
 	if (data->pid[i] == 0)
 	{
-		//todo: sigusr 설정하고 ignore 주기
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
+		signal(SIGUSR1, SIG_IGN);
 		execve_command(data, i);
+		exit(g_exit_code);
 	}
 	/* 부모 프로세스 */
 	else if (data->pid[i] > 0)
 	{
-		//signal(SIGINT, SIG_IGN); // ignore sigint signal
+		signal(SIGINT, SIG_IGN); // ignore sigint signal
 		//todo: ./minishell 커맨드 들어왔을 때sigusr1 이해해서 무시하는 부분 추가
 		if (i == data->n_cmd - 1)
 			wait_child_processes(data);
@@ -100,10 +98,7 @@ void	execute_command(t_data *data)
 			return ;
 	data->heredoc.seq = 0;
 	if (is_builtin(to_arr(data->cmd_lst[0].args)[0]) && (data->n_cmd == 1))
-	{
-		printf("i am builtin\n");
 		execve_command(data, 0);
-	}
 	else
 		go_execute(data, 0);
 }

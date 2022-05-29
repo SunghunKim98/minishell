@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:09:41 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/29 03:37:59 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/29 05:21:08 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,10 @@ int		get_double_string_len(char **str);
 int		get_env_index(t_data *data, char *key, int key_len);
 int	unset(t_data *data, char **cmd);
 
+# define PURPLE "\033[0;35m"
+# define YELLOW "\033[0;33m"
+# define WHITE "\033[0;37m"
+# define RESET "\033[0m"
 //성훈 추가
 
 #endif

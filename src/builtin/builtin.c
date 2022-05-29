@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 08:43:56 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/29 03:26:44 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/29 05:19:11 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	is_builtin(char *cmd)
 		|| !ft_strcmp(cmd, "env")
 		|| !ft_strcmp(cmd, "exit")) //todo: handle register cmd
 		return (TRUE);
-	printf("not builtin\n");
 	return (FALSE);
 }
 
