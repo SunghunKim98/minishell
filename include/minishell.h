@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:09:41 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/27 06:36:30 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/27 07:40:10 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,14 +242,13 @@ int		line_parsing(char *line, t_data *p_data);
 char	select_quoto_type(char *buffer, int length);
 char	*make_buffer(void);
 
-
-
-// ---------------- //
-void	free_split_one(char **arr);
-
 //수현 추가
 int	export(t_data *data, char **cmd, int *fd);
 int	env(t_data *data, int *fd);
+void	print_export(t_data *data, int *fd);
+char	**env_dict(char *s);
+void	ft_print_double_str(char **str);
+void	double_char_array_free(char **arr);
 
 //성훈 추가
 
