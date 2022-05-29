@@ -23,11 +23,6 @@ void	error_util1()
 	exit(-1);
 }
 
-/*
-    make_line.c - start
-*/
-
-
 
 char	*make_buffer(void)
 {
@@ -40,10 +35,6 @@ char	*make_buffer(void)
 }
 
 
-// extern t_exit	g_exit;
-
-
-
 char	select_quoto_type(char *buffer, int length)
 {
 	int	i;
@@ -54,7 +45,6 @@ char	select_quoto_type(char *buffer, int length)
 			return ('\'');
 	return ('\"');
 }
-
 
 
 int		line_parsing(char *line, t_data *p_data)
@@ -83,10 +73,6 @@ int		line_parsing(char *line, t_data *p_data)
 }
 
 
-
-
-
-
 int		start_with_the_line(char *line, t_data *p_data)
 {
 	if_pipe_opened(&line); 	// pipe가 열려있는 경우 예외처리 (즉, readline을 한번 더 하는 과정)
@@ -95,10 +81,8 @@ int		start_with_the_line(char *line, t_data *p_data)
 	if (!line_error_check(line))
 		return FAIL;
 
-
 	if (!line_parsing(line, p_data))
 		return FAIL;
-
 
 
 	t_args *p;
@@ -135,6 +119,22 @@ int		main(int argc, char **argv, char **envp)
 	g_exit_code = 0;
 	init_all(&data);
 	setting_env_things(&data, envp);
+
+	// 여기서 환경변수좀 출력해보자.
+
+
+	char **p;
+	int	i = -1;
+
+	p = (data.env);
+	while (p[++i])
+		printf("env: %s\n", p[i]);
+	
+	i = -1;
+
+	p = (data.env_path);
+	while (p[++i])
+		printf("env_path: %s\n", p[i]);
 
 	signal(SIGUSR1, execute_handler);
 	while (1)

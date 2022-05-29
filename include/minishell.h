@@ -73,28 +73,6 @@ typedef struct s_here
 	int		n_here; // 전체 개수
 }			t_here;
 
-typedef struct s_env
-{
-	char			*key;
-	char			*value;
-	int				env_flag;
-	struct s_env	*next;
-	struct s_env	*prev;
-}			t_env;
-
-typedef struct s_env_deq
-{
-	int		size;
-	t_env	*head;
-	t_env	*last;
-}			t_env_deq;
-
-typedef struct s_exit
-{
-	int	code;
-	int	sig_flag;
-}			t_exit;
-
 typedef struct s_data
 {
 	char		**env;
@@ -105,8 +83,6 @@ typedef struct s_data
     int			n_cmd;
 	t_here		heredoc;
 	t_cmd		*cmd_lst;
-	t_env_deq	*env_deq; // 성훈 추가
-
 }		t_data;
 
 /*parse.c*/
@@ -193,7 +169,6 @@ char	*join_strings(char *line, char **separator, int *start);
 
 /* line_parse_3.c */
 int		check_char_special(char ch);
-t_env	*check_env_list(char *key, t_data *p_data);
 char	*get_env_by_key(char *key, t_data *p_data);
 char	*parse_env_after_dollar(char **line, int *i, t_data *p_data);
 

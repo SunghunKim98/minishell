@@ -9,29 +9,27 @@ int		check_char_special(char ch)
 		return (0);
 }
 
-t_env	*check_env_list(char *key, t_data *p_data)
-{
-	t_env	*p;
-
-	p = p_data->env_deq->head;
-	while (p)
-	{
-		if (!ft_strncmp(key, p->key, ft_strlen(key) + 1))
-			return (p);
-		p = p->next;
-	}
-	return (0);
-}
-
 char	*get_env_by_key(char *key, t_data *p_data)
 {
-	t_env	*p;
 	char	*env_value;
+	char	**p;
+	int		i;
+	char	**lst;
 
-	p = check_env_list(key, p_data);
-	if (!p)
+	p = p_data->env;
+	i = -1;
+	while (p[++i])
+	{
+		if (!ft_strncmp(p[i], key, ft_strlen(key)))
+		{
+			lst = ft_split(p[i], '=');
+			env_value = advanced_strdup_no_free(lst[1]);
+			break ;
+		}
+	}
+	if (p[i] == 0)
 		return (0);
-	env_value = advanced_strdup_no_free(p->value);
+	double_char_array_free(lst);
 	return (env_value);
 }
 

@@ -1,5 +1,7 @@
 #include "../../include/minishell.h"
 
+extern int g_exit_code;
+
 void	set_env(char **line, int *i, t_data *p_data)
 {
 	char	*line_0;
@@ -12,8 +14,7 @@ void	set_env(char **line, int *i, t_data *p_data)
 	if ((*line)[*i] == '?')
 	{
 		(*i)++;
-		env = advanced_itoa(10);
-		// env = advanced_itoa(g_exit_code); // exit_code ??
+		env = advanced_itoa(g_exit_code);
 	}
 	else
 		env = parse_env_after_dollar(line, i, p_data);
