@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:53:21 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 19:24:42 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 21:02:17 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int	export(t_data *data, char **cmd, int *fd)
 	i = 0;
 	while (cmd[++i])
 	{
+		if (!ft_strchr(cmd[i], '='))
+			continue ;
 		env = env_dict(cmd[i]);
 		if (incorrect_env(env[0]))
 		{
