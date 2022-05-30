@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 08:58:09 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 19:18:04 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 20:32:10 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,11 @@ int	echo(char **words, int *fd)
 	int	i;
 
 	word_cnt = count_word(words);
-	if (!word_cnt)
+	if (word_cnt == 1)
+	{
 		ft_putendl_fd("", fd[WRITE]);
+		return (0);
+	}
 	if (is_n_option(words[1]))
 		echo_n(words, word_cnt, fd);
 	else

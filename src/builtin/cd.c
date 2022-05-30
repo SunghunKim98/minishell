@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 15:11:51 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 18:58:09 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 20:39:42 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,12 @@ static void	cd_home(t_data *data)
 
 int	cd(t_data *data, char *path)
 {
-	if ((path[0] == '~' && !path[1]) || !path)
+	if (!path || (path[0] == '~' && !path[1]))
 		cd_home(data);
 	else if (chdir(path) == -1)
 	{
 		error_message(path, "No such file or directory");
 		g_exit_code = 1;
-		exit(g_exit_code);
 	}
-	return (0);
+	return (g_exit_code);
 }
