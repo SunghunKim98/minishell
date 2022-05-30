@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe_parse.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/30 19:10:23 by sungkim           #+#    #+#             */
+/*   Updated: 2022/05/30 19:18:57 by sungkim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-extern int   g_exit_code;
+extern int	g_exit_code;
 
-int		check_pipe_opened(char **line)
+int	check_pipe_opened(char **line)
 {
 	char	*extend_line;
 	char	*origin;
@@ -21,14 +33,14 @@ int		check_pipe_opened(char **line)
 		origin = advanced_strdup(*line);
 		*line = ft_strjoin(origin, extend_line);
 		if (!*line)
-			exit(-1);
+			exit(1);
 		free(origin);
 		free(extend_line);
 	}
 	return (1);
 }
 
-int		check_pipe_can_get_input(char *line)
+int	check_pipe_can_get_input(char *line)
 {
 	int	i;
 
@@ -55,13 +67,13 @@ char	*get_more_line(void)
 		if (!new_line)
 			return (error_util0());
 		if (ft_strlen(new_line) > 0)
-			break;
+			break ;
 		free(new_line);
 	}
 	return (new_line);
 }
 
-int		if_pipe_opened(char *line)
+int	if_pipe_opened(char *line)
 {
 	int		i;
 	int		j;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   command_line.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/30 19:02:57 by sungkim           #+#    #+#             */
+/*   Updated: 2022/05/30 19:03:15 by sungkim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	get_command_from_line(char **command_arr, t_data *p_data)
@@ -55,7 +67,7 @@ char	**make_cmd_lst(char *line)
 	return (command);
 }
 
-int		check_if_quote(char *line, int *idx)
+int	check_if_quote(char *line, int *idx)
 {
 	while (line[*idx])
 	{

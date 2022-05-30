@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   line_parse_2.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/30 19:07:58 by sungkim           #+#    #+#             */
+/*   Updated: 2022/05/30 19:18:57 by sungkim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 char	*trim_line(int *start, int divider, char *line, t_data *p_data)
@@ -8,7 +20,7 @@ char	*trim_line(int *start, int divider, char *line, t_data *p_data)
 	result = separate_by_div(line, *start, divider);
 	new_line = transform_line(result[1], p_data);
 	if (!new_line)
-		exit(-1);
+		exit(1);
 	new_line = join_strings(new_line, result, start);
 	double_char_array_free(result);
 	return (new_line);
@@ -34,26 +46,23 @@ char	*transform_line(char *origin, t_data *p_data)
 	int		i;
 	int		j;
 	char	*new_line;
-	int		flag_sq;
-	int		flag_dq;
+	int		flag[2];
 	char	*buffer;
 
-	init_variables(&i, &j, &flag_sq, &flag_dq);
+	init_variables(&i, &j, &flag[0], &flag[1]);
 	new_line = advanced_strdup_no_free(origin);
-
 	buffer = make_buffer();
 	while (new_line[i] && (j < BUFF_SIZE - 1))
 	{
-		if (new_line[i] == '\'' && !flag_dq)
-			set_quoto_flag(new_line[i++], &flag_sq, &flag_dq);
-		else if (new_line[i] == '\"' && !flag_sq)
-			set_quoto_flag(new_line[i++], &flag_sq, &flag_dq);
-		else if (!flag_sq && new_line[i] == '$')
+		if (new_line[i] == '\'' && !flag[1])
+			set_quoto_flag(new_line[i++], &flag[0], &flag[1]);
+		else if (new_line[i] == '\"' && !flag[0])
+			set_quoto_flag(new_line[i++], &flag[0], &flag[1]);
+		else if (!flag[0] && new_line[i] == '$')
 			set_env(&new_line, &i, p_data);
 		else
 			buffer[j++] = new_line[i++];
 	}
-
 	free(new_line);
 	return (return_new_line(buffer, j));
 }
@@ -65,12 +74,12 @@ char	*join_strings(char *line, char **separator, int *start)
 
 	tmp = ft_strjoin(separator[0], line);
 	if (!tmp)
-		exit(-1);
+		exit(1);
 	free(line);
 	*start = ft_strlen(tmp);
 	new_line = ft_strjoin(tmp, separator[2]);
 	if (!new_line)
-		exit(-1);
+		exit(1);
 	free(tmp);
 	return (new_line);
 }
@@ -87,7 +96,7 @@ char	*return_new_line(char *buffer, int length)
 	}
 	line = (char *)malloc(sizeof(char) * (length + 3));
 	if (!line)
-		exit(-1);
+		exit(1);
 	quote = select_quoto_type(buffer, length);
 	line[0] = quote;
 	ft_strlcpy(line + 1, buffer, length + 1);

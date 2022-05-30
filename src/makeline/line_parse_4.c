@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   line_parse_4.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/30 19:08:27 by sungkim           #+#    #+#             */
+/*   Updated: 2022/05/30 19:09:54 by sungkim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 char	*find_pointer_for_separation(char *start)
@@ -12,16 +24,16 @@ char	*find_pointer_for_separation(char *start)
 	while (*p)
 	{
 		if (*p == '\'' && flag_dq == 0 && flag_sq)
-            flag_sq = 0;
-        else if ((*p == '\'' && flag_dq == 0 && !flag_sq))
-            flag_sq = 1;
-        else if (*p == '\"' && flag_sq == 0 && flag_dq)
-            flag_dq = 0;
-        else if (*p == '\"' && flag_sq == 0 && !flag_dq)
-            flag_dq = 1;
+			flag_sq = 0;
+		else if ((*p == '\'' && flag_dq == 0 && !flag_sq))
+			flag_sq = 1;
+		else if (*p == '\"' && flag_sq == 0 && flag_dq)
+			flag_dq = 0;
+		else if (*p == '\"' && flag_sq == 0 && !flag_dq)
+			flag_dq = 1;
 		if (*p == ' ' || *p == '|' || *p == '>' || *p == '<')
 			if (!flag_sq && !flag_dq)
-				break;
+				break ;
 		p++;
 	}
 	return (p);
@@ -34,18 +46,17 @@ char	*strdup_with_pointer(char *start, char *end)
 
 	if (*start == '|' || *start == '<' || *start == '>')
 	{
-		p = (char*)malloc(sizeof(char) * (2));
+		p = (char *)malloc(sizeof(char) * (2));
 		tmp = p;
 		*(tmp++) = *start;
 		*tmp = 0;
 		return (p);
 	}
-	else if ((*start == '\"' && *(end - 1) == '\"') || (*start == '\'' && *(end - 1) == '\''))
-	{
+	else if ((*start == '\"' && *(end - 1) == '\"')
+		|| (*start == '\'' && *(end - 1) == '\''))
 		if ((start++) == (end--) - 1)
 			return (0);
-	}
-	p = (char*)malloc(sizeof(char) * (end - start + 3));
+	p = (char *)malloc(sizeof(char) * (end - start + 3));
 	tmp = p;
 	*(tmp++) = '\"';
 	while (start < end)
@@ -55,7 +66,7 @@ char	*strdup_with_pointer(char *start, char *end)
 	return (p);
 }
 
-int		check_if_sep(char ch)
+int	check_if_sep(char ch)
 {
 	if (!ch)
 		return (1);

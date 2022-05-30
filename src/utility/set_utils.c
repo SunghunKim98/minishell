@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/30 19:23:51 by sungkim           #+#    #+#             */
+/*   Updated: 2022/05/30 19:24:12 by sungkim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	set_t_args(t_args *new_node, t_args **node)
@@ -28,7 +40,6 @@ void	set_t_redi(t_redi *new_node, t_redi **node)
 			p = (p)->next;
 		p->next = new_node;
 	}
-
 }
 
 void	set_command_data(char *command, t_cmd *cmd)
@@ -55,8 +66,8 @@ void	set_cmd_redi_flag(char *arr, t_redi *p)
 		else if (ft_strncmp("<<", arr, 2) == 0)
 			p->flag = 4;
 		else
-			exit(-1); // error ex. >< <>
+			exit(1);
 	}
 	else
-		exit(-1);
+		exit(1);
 }

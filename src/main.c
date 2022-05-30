@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:08:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 19:03:56 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:28:12 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*make_buffer(void)
 
 	new_buffer = (char *)malloc(sizeof(char) * BUFF_SIZE);
 	if (new_buffer == NULL)
-		exit(-1);
+		exit(1);
 	return (new_buffer);
 }
 
