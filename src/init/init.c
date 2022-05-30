@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 00:59:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 15:26:47 by sungkim          ###   ########.fr       */
+/*   Updated: 2022/05/30 16:28:38 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	init_all(t_data *data)
 	data->cmd_lst = NULL;
 	data->now_cmd = NULL;
 	data->now_path = NULL;
+	data->pwd = getcwd(NULL, 0);
 }
 
 static void	free_cmd(t_data *data)

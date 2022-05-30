@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:09:41 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 13:50:11 by sungkim          ###   ########.fr       */
+/*   Updated: 2022/05/30 16:29:20 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,10 @@ typedef struct s_data
 	char		*home;
 	int			**pipe_fd;
 	int			*pid;
-    int			n_cmd;
-
+	int			n_cmd;
+	char		*pwd;
 	char 		**now_cmd;
 	char		*now_path;
-
 	t_here		heredoc;
 	t_cmd		*cmd_lst;
 }		t_data;
@@ -123,7 +122,7 @@ void	heredoc_handler(int signo);
 
 int		cd(t_data *data, char *path);
 int		echo(char **words, int *fd);
-int		pwd(int *fd);
+int		pwd(t_data *data, int *fd);
 int		go_exit(t_data *data, char **cmd); // unsigned char 로 내보내야 함
 int		ft_isspace(char c);
 

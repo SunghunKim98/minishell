@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 08:43:56 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/29 05:19:11 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 16:29:35 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	exec_builtin(t_data *data, char **cmd, int *fd)
 	else if (!ft_strcmp(cmd[0], "cd"))
 		g_exit_code = cd(data, cmd[1]);
 	else if (!ft_strcmp(cmd[0], "pwd"))
-		g_exit_code = pwd(fd);
+		g_exit_code = pwd(data, fd);
 	else if (!ft_strcmp(cmd[0], "export"))
 		g_exit_code = export(data, cmd, fd); //todo: 미완 .. 할게 많다..^^
 	else if (!ft_strcmp(cmd[0], "unset"))

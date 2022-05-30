@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:50:15 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/23 22:18:41 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 16:27:28 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 extern int	g_exit_code;
 
-int	pwd(int *fd)
+int	pwd(t_data *data, int *fd)
 {
-	ft_putendl_fd(getcwd(NULL, 0), fd[WRITE]);
+	free(data->pwd);
+	data->pwd = getcwd(NULL, 0);
+	ft_putendl_fd(data->pwd, fd[WRITE]);
 	return (g_exit_code);
 }
