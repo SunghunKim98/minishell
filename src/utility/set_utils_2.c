@@ -41,51 +41,54 @@ void	set_env(char **line, int *i, t_data *p_data)
 	free(tmp);
 }
 
-static void	init_var(int *i, char **tmp, char *p)
-{
-	*i = -1;
-	*tmp = p;
-}
-
 char	**set_command_with_line(char *line, t_data *p_data)
 {
 	char	**command;
-	char	*p;
-	char	*tmp;
 	int		i;
-	int		j;
+	int		prev;
+	int		post;
 
-	p = line;
+	i = -1;
 	command = malloc_double_char(p_data->n_cmd);
-	init_var(&i, &tmp, p);
-	while (1)
+	prev = 0;
+	set_divider(line, prev, &post);
+	while (++i < p_data->n_cmd)
 	{
-		if (*p == '|' || *p == 0)
+		while (line[post] != '|' && line[post])
 		{
-			j = -1;
-			command[++i] = malloc_single_char(p - tmp);
-			while (++j < p - tmp)
-				command[i][j] = *(tmp + j);
-			if (*p == 0)
-				break ;
-			else
-				tmp = p + 1;
+			if (check_if_sep(line[post]) || (prev != post))
+				post++;
+			set_divider(line, post, &post);
 		}
-		p++;
+		command[i] = malloc_single_char(post - prev);
+		ft_strlcpy(command[i], line + prev, (post - prev + 1));
+		prev = post;
+		post += 1;
 	}
 	return (command);
 }
 
 void	set_command_count(char *line, t_data *p_data)
 {
-	char	*p;
 	int		count;
+	int		idx_sep;
 
-	p = line;
+	idx_sep = 0;
 	count = 0;
-	while (*p)
-		if (*(p++) == '|')
-			count++;
+	set_divider(line, idx_sep, &idx_sep);
+	while (line[idx_sep])
+	{
+		while (line[idx_sep] && line[idx_sep] != '|')
+		{
+			++idx_sep;
+			set_divider(line, idx_sep, &idx_sep);
+		}
+		if (line[idx_sep] == 0)
+			break ;
+		count++;
+		idx_sep++;
+		set_divider(line, idx_sep, &idx_sep);
+	}
 	p_data->n_cmd = count + 1;
 }
 
