@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 03:13:25 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 16:28:13 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:05:08 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	parse_env_home(t_data *data, char **envp)
 void	setting_env_things(t_data *data, char **envp)
 {
 	data->n_env = get_double_string_len(envp);
-	data->env = set_data_env(data->n_env, envp); // 이거 동적할당으로 저장해줘야 나중에 오류 안남!!
-	parse_env_home(data, data->env); // for cd ~
-	parse_env_path(data, data->env);  // for exec
+	data->env = set_data_env(data->n_env, envp);
+	parse_env_home(data, data->env);
+	parse_env_path(data, data->env);
 }

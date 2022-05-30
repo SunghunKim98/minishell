@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 15:11:51 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/23 22:02:52 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 18:58:09 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,8 @@ static void	cd_home(t_data *data)
 
 int	cd(t_data *data, char *path)
 {
-	char	old_pwd[1024]; // todo: 왜 1024?
-
-	getcwd(old_pwd, 1024);
 	if ((path[0] == '~' && !path[1]) || !path)
 		cd_home(data);
-	// '-' 안해도 되겠죠?
-	// todo: OLDPWD는 저장해야 합니다..
 	else if (chdir(path) == -1)
 	{
 		error_message(path, "No such file or directory");

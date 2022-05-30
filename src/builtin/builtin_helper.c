@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 17:43:55 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/28 21:35:06 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:20:12 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-
-int		get_env_size(char **env)
+int	get_env_size(char **env)
 {
 	int	i;
 
@@ -46,7 +45,7 @@ void	sort_env_str(char **str)
 	}
 }
 
-void	print_export(t_data *data, int *fd) //환경변수 목록 정렬해서 출력 (웩...정렬;;)
+int	print_export(t_data *data, int *fd)
 {
 	int		i;
 	char	**sorted_env;
@@ -67,6 +66,7 @@ void	print_export(t_data *data, int *fd) //환경변수 목록 정렬해서 출�
 	while (sorted_env[++i])
 		free(sorted_env[i]);
 	free(sorted_env);
+	return (0);
 }
 
 char	**env_dict(char *s)
@@ -75,37 +75,30 @@ char	**env_dict(char *s)
 	char	*equal;
 	char	**env_dict;
 
-	printf("go in env dict\n");
-	env_dict = (char **)malloc(sizeof(char *) * 3); // key, value, null
+	env_dict = (char **)malloc(sizeof(char *) * 3);
 	malloc_error(env_dict);
 	equal = ft_strchr(s, '=');
-	ft_putendl_fd(equal, 1);
 	key_len = equal - s + 1;
 	if (!equal)
 		key_len = ft_strlen(s) + 1;
-	printf("key_len %d\n", key_len);
 	env_dict[0] = (char *)malloc(sizeof(char) * (key_len));
 	malloc_error(env_dict[0]);
-	printf("malloc done\n");
 	if (key_len == 1)
 		env_dict[0][0] = '\0';
 	else
 		ft_strlcpy(env_dict[0], s, (key_len));
-	printf("lcpy done %s\n", env_dict[0]);
 	if (equal)
-		env_dict[1] = ft_strdup(equal + 1); // 환경변수 값 저장
+		env_dict[1] = ft_strdup(equal + 1);
 	else
 	{
 		env_dict[1] = (char *)malloc(sizeof(char));
 		env_dict[1][0] = '\0';
 	}
-	malloc_error(env_dict[1]);
 	env_dict[2] = NULL;
-	ft_print_double_str(env_dict);
 	return (env_dict);
 }
 
-int		incorrect_env(char *key)
+int	incorrect_env(char *key)
 {
 	int	i;
 

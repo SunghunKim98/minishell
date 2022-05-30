@@ -6,16 +6,15 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 03:42:54 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 17:51:39 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:18:59 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 extern int	g_exit_code;
-// max long long : 9,223,372,036,854,775,807
 
-int	is_arg_digit(char *arg) // 문자 유무, 다 숫자여도 19자리 이상이면 out
+int	is_arg_digit(char *arg)
 {
 	int	i;
 	int	end;
@@ -63,7 +62,7 @@ long long	atolonglong(const char *str)
 {
 	long				sign;
 	unsigned long long	result;
-	size_t	i;
+	size_t				i;
 
 	sign = 1;
 	result = 0;

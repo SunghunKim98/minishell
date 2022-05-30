@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 08:43:56 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 17:54:52 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:08:43 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_builtin(char *cmd)
 		|| !ft_strcmp(cmd, "export")
 		|| !ft_strcmp(cmd, "unset")
 		|| !ft_strcmp(cmd, "env")
-		|| !ft_strcmp(cmd, "exit")) //todo: handle register cmd
+		|| !ft_strcmp(cmd, "exit"))
 		return (TRUE);
 	return (FALSE);
 }

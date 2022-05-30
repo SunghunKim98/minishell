@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 08:58:09 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/23 22:15:31 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:18:04 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int count_word(char **words)
+static int	count_word(char **words)
 {
 	int	i;
 
@@ -40,9 +40,9 @@ static void	echo_n(char **words, int word_cnt, int *fd)
 	int	i;
 
 	i = 1;
-	while (is_n_option(words[++i])) // 뒤에 나오는 -n or -nnn 계속 넘기기
+	while (is_n_option(words[++i]))
 		;
-	while (words[++i]) // 2	부터 출력
+	while (words[++i])
 	{
 		ft_putstr_fd(words[i], fd[WRITE]);
 		if (i < (word_cnt - 1))
@@ -56,14 +56,14 @@ int	echo(char **words, int *fd)
 	int	i;
 
 	word_cnt = count_word(words);
-	if (!word_cnt) // echo 뒤에 아무것도 없으면 newline 출력하고 끝
+	if (!word_cnt)
 		ft_putendl_fd("", fd[WRITE]);
 	if (is_n_option(words[1]))
 		echo_n(words, word_cnt, fd);
 	else
 	{
 		i = 0;
-		while (words[++i]) //1부터 출력
+		while (words[++i])
 		{
 			ft_putstr_fd(words[i], fd[WRITE]);
 			if (i < (word_cnt - 1))

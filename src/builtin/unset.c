@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 21:24:22 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/29 03:39:16 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:25:22 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	unset_env(t_data *data, char *key, int key_len)
 	char	**new_env;
 	char	**tmp;
 
-	
 	unset_index = get_env_index(data, key, key_len);
 	data->n_env--;
 	new_env = (char **)malloc(sizeof(char *) * (data->n_env + 1));

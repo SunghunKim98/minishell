@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 00:08:44 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/29 05:31:49 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:15:44 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int	g_exit_code;
 
-// 전체 커맨드에서 heredoc 개수 세기
+/* 전체 커맨드에서 heredoc 개수 세기 */
 int	heredoc_count(t_data *data)
 {
 	int		i;
@@ -69,10 +69,8 @@ int	save_if_here_doc(t_data *data, t_redi *now)
 		if (pid > 0)
 		{
 			signal(SIGINT, SIG_IGN);
-			printf("wait\n");
 			waitpid(pid, &status, 0);
-			printf("wait end\n");
-			if (WEXITSTATUS(status) == 1) // heredoc에서 ctrl c 눌렀을 때 exit code 1
+			if (WEXITSTATUS(status) == 1)
 				return (ERROR);
 		}
 		else if (!pid)
@@ -101,7 +99,6 @@ int	heredoc_main(t_data *data)
 			if (save_if_here_doc(data, now) == ERROR)
 				return (ERROR);
 			now = now->next;
-			printf("going\n");
 		}
 	}
 	return (0);

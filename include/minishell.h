@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:09:41 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 16:29:20 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:21:17 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,7 @@ int		start_with_the_line(char *line, t_data *p_data);
 //수현 추가
 int		export(t_data *data, char **cmd, int *fd);
 int		env(t_data *data, int *fd);
-void	print_export(t_data *data, int *fd);
+int		print_export(t_data *data, int *fd);
 char	**env_dict(char *s);
 void	ft_print_double_str(char **str);
 void	double_char_array_free(char **arr);
@@ -244,6 +244,7 @@ int		unset(t_data *data, char **cmd);
 void	free_all(t_data *data);
 void	clear_cmd_args(t_args *args);
 void	clear_cmd_redi(t_redi *redi);
+void	free_now_cmd(t_data *data);
 
 
 # define PURPLE "\033[0;35m"

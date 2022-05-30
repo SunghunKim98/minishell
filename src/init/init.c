@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 00:59:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 18:43:16 by sungkim          ###   ########.fr       */
+/*   Updated: 2022/05/30 19:03:16 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,18 @@ void	free_all(t_data *data)
 	if (data->heredoc.pipe_read)
 		free(data->heredoc.pipe_read);
 	data->heredoc.pipe_read = NULL;
+}
+
+void	free_now_cmd(t_data *data)
+{
+	if (data->now_cmd)
+	{
+		double_char_array_free(data->now_cmd);
+		data->now_cmd = NULL;
+	}
+	if (data->now_path)
+	{
+		free(data->now_path);
+		data->now_path = NULL;
+	}
 }

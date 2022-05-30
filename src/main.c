@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:08:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 18:45:29 by sungkim          ###   ########.fr       */
+/*   Updated: 2022/05/30 19:03:56 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,16 +93,7 @@ int		main(int argc, char **argv, char **envp)
 
 		execute_command(&data);
 
-		if (data.now_cmd)
-		{
-			double_char_array_free(data.now_cmd);
-			data.now_cmd = NULL;
-		}
-		if (data.now_path)
-		{
-			free(data.now_path);
-			data.now_path = NULL;
-		}
+		free_now_cmd(&data);
 		free_all(&data);
 		system("leaks minishell");
 	}

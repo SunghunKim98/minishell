@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:04:28 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/25 15:58:13 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:26:10 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-/* 리스트로 된 명령어 + 옵션을 배열로 저장 */
 
 char	**to_arr(t_args *cmd)
 {
@@ -26,7 +24,7 @@ char	**to_arr(t_args *cmd)
 	while (tmp)
 	{
 		tmp = tmp->next;
-		cnt++;		
+		cnt++;
 	}
 	cmd_arr = (char **)malloc(sizeof(char *) * (cnt + 1));
 	malloc_error(cmd_arr);
@@ -44,9 +42,9 @@ char	**to_arr(t_args *cmd)
 
 int	is_path_cmd(char *cmd_path)
 {
-	struct stat file_stat; // from <sys/stat.h>
+	struct stat	file_stat;
 
-	if (ft_strncmp(cmd_path, "/", 1)) // /로 시작하지 않으면 return false
+	if (ft_strncmp(cmd_path, "/", 1))
 		return (FALSE);
 	if (stat(cmd_path, &file_stat) == ERROR)
 	{
@@ -58,27 +56,24 @@ int	is_path_cmd(char *cmd_path)
 		error_message(cmd_path, strerror(errno));
 		exit(_CANT_EXEC);
 	}
-	return (TRUE); // 에러 없이 파일을 정상 조회한 경우 true 리턴
+	return (TRUE);
 }
 
 /* PATH 환경변수로 경로 가져오기, 이미 경로로 준 경우 바로 리턴 */
-//stat 함수 이용
-//인자로 들어온 cmd는 명령어 (ls, df 등)
-char	*get_path(char **paths, char *cmd) // todo: data에 PATH 파싱해서 저장
+char	*get_path(char **paths, char *cmd)
 {
-	int		i;
-	char	*cmd_path;
-	struct stat file_stat; // from <sys/stat.h>
+	int			i;
+	char		*cmd_path;
+	struct stat	file_stat;
 
 	if (is_path_cmd(cmd))
 		return (cmd);
 	cmd_path = NULL;
 	i = -1;
-	while (paths[++i]) //todo: bug: paths에 널 들어옴
+	while (paths[++i])
 	{
-		cmd_path = ft_strjoin(paths[i], cmd); //todo: paths저장할 때 맨 끝에 '/' 붙여서 저장 했는지 확인
-		// printf("cmd_path: %s\n", cmd_path);
-		if (!stat(cmd_path, &file_stat)) // 존재하는 파일이면 0 리턴
+		cmd_path = ft_strjoin(paths[i], cmd);
+		if (!stat(cmd_path, &file_stat))
 			break ;
 		free(cmd_path);
 		cmd_path = NULL;

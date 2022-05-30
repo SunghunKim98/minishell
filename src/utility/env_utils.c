@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 02:57:05 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/29 03:30:35 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:05:41 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int		get_env_index(t_data *data, char *key, int key_len)
 	while (prev_env[++i])
 	{
 		now = prev_env[i];
-		while (now && ft_strncmp(now, "=", 1) && ft_strncmp(now, key, key_len)) // key 찾기
+		while (now && ft_strncmp(now, "=", 1) && ft_strncmp(now, key, key_len))
 			++now;
-		if (!now || !ft_strncmp(now, "=", 1)) // 끝까지 갔거나 =를 만난 경우
+		if (!now || !ft_strncmp(now, "=", 1))
 			continue ;
 		return (i);
 	}

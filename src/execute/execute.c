@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 08:17:34 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 18:51:26 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:26:28 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	wait_child_processes(t_data *data)
 	int	i;
 
 	pid_last = data->pid[data->n_cmd - 1];
-	//close pipe
 	i = -1;
 	while (++i < data->n_cmd - 1)
 	{
@@ -33,36 +32,22 @@ void	wait_child_processes(t_data *data)
 	}
 	while (TRUE)
 	{
-		ret = waitpid(0, &status, 0); // 더 이상 기다릴 프로세스가 없으면 -1을 반환함.
-		if (pid_last == ret) // 128 + N으로 시그널 발생 시 exit code 설정됨
-			g_exit_code = WEXITSTATUS(status); // 정상 종료 시 (-> sigchld) exit code 받아오기 매크로 사용해도 되지?
+		ret = waitpid(0, &status, 0);
+		if (pid_last == ret)
+			g_exit_code = WEXITSTATUS(status);
 		if (ret == -1)
 			break ;
 	}
 }
 
-int		execve_command(t_data *data, int i)
+int	execve_command(t_data *data, int i)
 {
-	// char	**cmd;
-	// char	*cmd_path;
 	int		fd[2];
 
-	if (data->now_cmd)
-	{
-		double_char_array_free(data->now_cmd);
-		data->now_cmd = NULL;
-	}
-	if (data->now_path)
-	{
-		free(data->now_path);
-		data->now_path = NULL;
-	}
-
-
-	data->now_cmd = to_arr(data->cmd_lst[i].args); // 명령어 + 옵션 들어있는 리스트 배열로 바꾸기
+	free_now_cmd(data);
+	data->now_cmd = to_arr(data->cmd_lst[i].args);
 	data->now_path = get_path(data->env_path, data->now_cmd[0]);
-
-	arrange_pipe_fd(data, data->now_cmd[0], i, fd); //dup2 함수 호출//문제여
+	arrange_pipe_fd(data, data->now_cmd[0], i, fd);
 	if (is_builtin(data->now_cmd[0]))
 		exec_builtin(data, data->now_cmd, fd);
 	else
@@ -83,14 +68,12 @@ static void	go_execute(t_data *data, int i)
 		return ;
 	create_pipe(data, i);
 	fork_process(data, i);
-	/* 자식 프로세스 */
 	if (data->pid[i] == 0)
 	{
 		signal(SIGUSR1, SIG_IGN);
 		execve_command(data, i);
 		exit(g_exit_code);
 	}
-	/* 부모 프로세스 */
 	else if (data->pid[i] > 0)
 	{
 		signal(SIGINT, SIG_IGN);
@@ -100,7 +83,7 @@ static void	go_execute(t_data *data, int i)
 			if (!ft_strcmp(data->cmd_lst[i].args->str, "exit"))
 				exit(g_exit_code);
 		}
-		go_execute(data, i + 1); // 재귀적으로 들어가서 다음 명령어 호출
+		go_execute(data, i + 1);
 	}
 }
 
@@ -112,7 +95,7 @@ void	execute_command(t_data *data)
 	init_process(data);
 	if (data->n_cmd > 1)
 		init_pipe(data);
-	if (heredoc_count(data)) // heredoc sign (<<) 이 있으면, 표준입력 받아서 heredoc 파이프에 따로 저장.
+	if (heredoc_count(data))
 		if (heredoc_main(data) == ERROR)
 			return ;
 	data->heredoc.seq = 0;

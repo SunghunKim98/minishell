@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:53:21 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/29 03:30:50 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:24:42 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	add_new_env(t_data *data, char **env)
 	free(key_with_equal);
 	tmp = data->env;
 	data->env = new_env;
-	printf("free err here??\n");
 	double_char_array_free(tmp);
 	data->n_env++;
 }
@@ -47,7 +46,6 @@ void	replace_env(t_data *data, char *env, int replace_idx)
 	char	**new_env;
 	char	**tmp;
 
-	//싹 다 free 하고 다시 malloc, 저장
 	new_env = (char **)malloc(sizeof(char *) * (data->n_env + 1));
 	i = -1;
 	while (data->env[++i])
@@ -62,39 +60,37 @@ void	replace_env(t_data *data, char *env, int replace_idx)
 	double_char_array_free(tmp);
 }
 
+static void	save_env(t_data *data, char **env, char **cmd, int i)
+{
+	int		key_len;
+	int		replace_idx;
+
+	key_len = ft_strlen(env[0]);
+	replace_idx = get_env_index(data, env[0], key_len);
+	if (replace_idx < 0)
+		add_new_env(data, env);
+	else
+		replace_env(data, cmd[i], replace_idx);
+}
+
 int	export(t_data *data, char **cmd, int *fd)
 {
 	int		i;
 	char	**env;
-	int		key_len;
-	int		replace_idx;
 
-	printf("now export\n");
-	if (!cmd[1]) // only export
-	{
-		print_export(data, fd);
-		return (0);
-	}
+	if (!cmd[1])
+		return (print_export(data, fd));
 	i = 0;
 	while (cmd[++i])
 	{
 		env = env_dict(cmd[i]);
-		printf("<dict>\n");
-		ft_print_double_str(env);
 		if (incorrect_env(env[0]))
 		{
 			error_message_arg("export", cmd[i], "not a valid identifier");
 			g_exit_code = 1;
 		}
 		else
-		{
-			key_len = ft_strlen(env[0]);
-			replace_idx = get_env_index(data, env[0], key_len);
-			if (replace_idx < 0)
-				add_new_env(data, env);
-			else
-				replace_env(data, cmd[i], replace_idx);
-		}
+			save_env(data, env, cmd, i);
 		double_char_array_free(env);
 	}
 	return (g_exit_code);
