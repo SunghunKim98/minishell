@@ -9,11 +9,9 @@ int		check_pipe_opened(char **line)
 
 	if (if_pipe_opened(*line))
 		return (0);
-	
 	if (check_pipe_can_get_input(*line))
 	{
 		// 여기서 무슨 시그널을 줌!
-
 		extend_line = get_more_line();
 		if (!extend_line)
 		{
@@ -54,12 +52,6 @@ char	*get_more_line(void)
 	while (1)
 	{
 		new_line = readline("pipe> ");
-		if (g_exit_code == 10) // [check] 수현아 이거 exit_code 몇 번??
-		{
-			g_exit_code = 1;
-			free(new_line);
-			return (0);
-		}
 		if (!new_line)
 			return (error_util0());
 		if (ft_strlen(new_line) > 0)

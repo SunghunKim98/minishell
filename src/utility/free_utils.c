@@ -5,7 +5,7 @@ void	free_split_one(char **arr)
 	int	i;
 
 	i = -1;
-	while (++i)
+	while (arr[++i])
 		free(arr[i]);
 	free(arr);
 }
@@ -20,6 +20,7 @@ void	double_char_array_free(char **arr)
 	while (arr[++i])
 		free(arr[i]);
 	free(arr);
+	arr = NULL;
 }
 
 void	clear_cmd_args(t_args *args)

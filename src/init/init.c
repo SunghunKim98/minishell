@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 00:59:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 16:28:38 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 18:43:16 by sungkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void	free_pipe(t_data *data)
 		free(data->pipe_fd[i]);
 	if (data->pipe_fd)
 		free(data->pipe_fd);
+	data->pipe_fd = NULL;
 }
 
 void	free_all(t_data *data)

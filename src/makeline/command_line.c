@@ -14,8 +14,8 @@ void	get_command_from_line(char **command_arr, t_data *p_data)
 		j = -1;
 		while (one_command[++j])
 			set_command_data(one_command[j], &(p_data->cmd_lst[i]));
+		double_char_array_free(one_command);
 	}
-	double_char_array_free(one_command);
 }
 
 char	**convert_line_to_command(char *line)

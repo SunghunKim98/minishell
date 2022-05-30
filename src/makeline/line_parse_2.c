@@ -6,17 +6,10 @@ char	*trim_line(int *start, int divider, char *line, t_data *p_data)
 	char	*new_line;
 
 	result = separate_by_div(line, *start, divider);
-
 	new_line = transform_line(result[1], p_data);
 	if (!new_line)
 		exit(-1);
-
-	printf("<Before> %s\n", new_line);
-
 	new_line = join_strings(new_line, result, start);
-
-	printf("<After> %s\n", new_line);
-
 	double_char_array_free(result);
 	return (new_line);
 }
