@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 17:43:55 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/26 17:24:37 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/28 21:35:06 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ void	print_export(t_data *data, int *fd) //환경변수 목록 정렬해서 출�
 	sorted_env = (char **)malloc(sizeof(char *) * (len + 1));
 	malloc_error(sorted_env);
 	sorted_env[len] = NULL;
+	i = -1;
+	while (data->env[++i])
+		sorted_env[i] = ft_strdup(data->env[i]);
 	sort_env_str(sorted_env);
 	i = -1;
 	while (sorted_env[++i])
@@ -72,15 +75,23 @@ char	**env_dict(char *s)
 	char	*equal;
 	char	**env_dict;
 
+	printf("go in env dict\n");
 	env_dict = (char **)malloc(sizeof(char *) * 3); // key, value, null
 	malloc_error(env_dict);
 	equal = ft_strchr(s, '=');
-	key_len = s - equal + 1;
+	ft_putendl_fd(equal, 1);
+	key_len = equal - s + 1;
 	if (!equal)
 		key_len = ft_strlen(s) + 1;
+	printf("key_len %d\n", key_len);
 	env_dict[0] = (char *)malloc(sizeof(char) * (key_len));
 	malloc_error(env_dict[0]);
-	ft_strlcpy(env_dict[0], s, (key_len));
+	printf("malloc done\n");
+	if (key_len == 1)
+		env_dict[0][0] = '\0';
+	else
+		ft_strlcpy(env_dict[0], s, (key_len));
+	printf("lcpy done %s\n", env_dict[0]);
 	if (equal)
 		env_dict[1] = ft_strdup(equal + 1); // 환경변수 값 저장
 	else
@@ -90,5 +101,24 @@ char	**env_dict(char *s)
 	}
 	malloc_error(env_dict[1]);
 	env_dict[2] = NULL;
+	ft_print_double_str(env_dict);
 	return (env_dict);
+}
+
+int		incorrect_env(char *key)
+{
+	int	i;
+
+	if (!key)
+		return (TRUE);
+	if (!ft_strcmp(key, "_"))
+		return (TRUE);
+	i = 0;
+	if (ft_isdigit(key[i]))
+		return (TRUE);
+	while (ft_isalnum(key[i]))
+		++i;
+	if (key[i] == '\0')
+		return (FALSE);
+	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 08:46:58 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/25 15:54:03 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/28 22:05:12 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,25 @@ int	ft_isspace(char c)
 		return (1);
 	else
 		return (0);
+}
+
+void	ft_print_double_str(char **str)
+{
+	int	i;
+
+	ft_putendl_fd("#########print double string###########", 1);
+	i = -1;
+	while (str[++i])
+		ft_putendl_fd(str[i], 1);
+	ft_putendl_fd("#######################################", 1);
+}
+
+int		get_double_string_len(char **str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		;
+	return (i);
 }

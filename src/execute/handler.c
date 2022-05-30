@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:11:26 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/25 05:05:15 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/29 05:01:50 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,19 @@ extern int	g_exit_code;
 
 void	newline_handler(int signo)
 {
-	(void)signo;
+	int	status;
+
+	wait(&status);
+	if (signo == SIGINT)
+	{
+		g_exit_code = 130;
+		ft_putchar_fd('\n', STDERR_FILENO);
+	}
+	else if (signo == SIGQUIT)
+	{
+		g_exit_code = 131;
+		ft_putendl_fd("Quit: 3", STDERR_FILENO);
+	}
 }
 
 void	execute_handler(int signo)

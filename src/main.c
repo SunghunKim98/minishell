@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:08:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/27 20:19:23 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/29 05:23:19 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int		line_parsing(char *line, t_data *p_data)
 
 	set_command_count(processed_line, p_data);
 	line_by_command = set_command_with_line(processed_line, p_data);
-
-	int i = -1;
 
 	get_command_from_line(line_by_command, p_data);
 
@@ -111,6 +109,7 @@ int		main(int argc, char **argv, char **envp)
 		signal(SIGINT, main_handler);
 		signal(SIGQUIT, SIG_IGN); // sigquit 무시
 		line = readline("minishell$ ");
+		// line = ft_strdup("cat << limit");
 		if (!line)
 			error_util1();
 		else if (!*line)
@@ -121,6 +120,11 @@ int		main(int argc, char **argv, char **envp)
 				continue;
 		}
 		// execute_command(&data);
+		printf(PURPLE);
+		printf("==============parsing end==============\n");
+		ft_putstr_fd(WHITE, 1);
+		execute_command(&data);
+		// system("leaks minishell");
 	}
 
 

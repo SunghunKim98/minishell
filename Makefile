@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/21 00:17:03 by soahn             #+#    #+#              #
-#    Updated: 2022/05/27 19:29:16 by sungkim          ###   ########.fr        #
+#    Updated: 2022/05/29 03:38:37 by soahn            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRCS_DIR		= ./src/
 LIB_DIR			= ./lib/
 LIB_NAME		= ./lib/libft.a
 
-SRC		=	main.c builtin/builtin_helper.c builtin/builtin.c builtin/cd.c builtin/echo.c builtin/exit.c builtin/pwd.c \
+SRC		=	main.c builtin/builtin_helper.c builtin/builtin.c builtin/cd.c builtin/echo.c builtin/env.c builtin/exit.c builtin/export.c builtin/pwd.c builtin/unset.c\
 			execute/execute_helper.c execute/execute.c execute/handler.c execute/heredoc.c execute/pipe.c execute/process.c execute/redirection.c \
 			init/init.c init/setting_env.c utility/utils.c \
 			error/errorcheck.c error/error.c check/check_case.c \
@@ -42,6 +42,8 @@ SRC		=	main.c builtin/builtin_helper.c builtin/builtin.c builtin/cd.c builtin/ec
 			makeline/line_parse_2.c makeline/line_parse_3.c makeline/line_parse_4.c \
 			makeline/pipe_parse.c utility/advanced_utils.c utility/free_utils.c \
 			utility/malloc_utils.c utility/set_utils.c utility/set_utils_2.c utility/error_utils.c \
+			utility/env_utils.c\
+			
 
 SRCS	= $(addprefix $(SRCS_DIR), $(SRC))
 OBJS	= $(SRCS:.c=.o)

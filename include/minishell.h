@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:09:41 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/27 20:44:53 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/29 05:21:08 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_here
 typedef struct s_data
 {
 	char		**env;
+	int			n_env;
 	char		**env_path;
 	char		*home;
 	int			**pipe_fd;
@@ -225,13 +226,23 @@ int		start_with_the_line(char *line, t_data *p_data);
 /*  */
 
 
-
-
-// ---------------- //
-void	free_split_one(char **arr);
-
 //수현 추가
+int	export(t_data *data, char **cmd, int *fd);
+int	env(t_data *data, int *fd);
+void	print_export(t_data *data, int *fd);
+char	**env_dict(char *s);
+void	ft_print_double_str(char **str);
+void	double_char_array_free(char **arr);
+int		incorrect_env(char *key);
+char	**set_data_env(int n_env, char **envp);
+int		get_double_string_len(char **str);
+int		get_env_index(t_data *data, char *key, int key_len);
+int	unset(t_data *data, char **cmd);
 
+# define PURPLE "\033[0;35m"
+# define YELLOW "\033[0;33m"
+# define WHITE "\033[0;37m"
+# define RESET "\033[0m"
 //성훈 추가
 
 #endif
