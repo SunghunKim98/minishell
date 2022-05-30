@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:09:41 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 10:08:33 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 12:57:14 by sungkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,8 +227,8 @@ int		start_with_the_line(char *line, t_data *p_data);
 
 
 //수현 추가
-int	export(t_data *data, char **cmd, int *fd);
-int	env(t_data *data, int *fd);
+int		export(t_data *data, char **cmd, int *fd);
+int		env(t_data *data, int *fd);
 void	print_export(t_data *data, int *fd);
 char	**env_dict(char *s);
 void	ft_print_double_str(char **str);
@@ -237,7 +237,7 @@ int		incorrect_env(char *key);
 char	**set_data_env(int n_env, char **envp);
 int		get_double_string_len(char **str);
 int		get_env_index(t_data *data, char *key, int key_len);
-int	unset(t_data *data, char **cmd);
+int		unset(t_data *data, char **cmd);
 void	free_all(t_data *data);
 void	clear_cmd_args(t_args *args);
 void	clear_cmd_redi(t_redi *redi);

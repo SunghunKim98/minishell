@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:08:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 11:25:59 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 13:06:24 by sungkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,11 @@ int		line_parsing(char *line, t_data *p_data)
 	char	**line_by_command;
 
 	processed_line = make_standard_line(line, p_data);
-
 	set_command_count(processed_line, p_data);
 	line_by_command = set_command_with_line(processed_line, p_data);
-
+	free(processed_line);
 	get_command_from_line(line_by_command, p_data);
-
+	double_char_array_free(line_by_command);
 	return (SUCCESS);
 }
 
@@ -56,6 +55,7 @@ int		start_with_the_line(char *line, t_data *p_data)
 	int		pipe_result;
 
 	pipe_result = check_pipe_opened(&line); 	// pipe가 열려있는 경우 예외처리 (즉, readline을 한번 더 하는 과정)
+
 	add_history(line);
 	if (!pipe_result)
 	{
@@ -89,6 +89,9 @@ int		start_with_the_line(char *line, t_data *p_data)
 			p = p->next;
 		}
 	}
+
+
+
 	return SUCCESS;
 }
 
@@ -100,9 +103,9 @@ int		main(int argc, char **argv, char **envp)
 	if (!argc || !argv)
 		return (0);
 	g_exit_code = 0;
+
 	init_all(&data);
 	setting_env_things(&data, envp);
-
 	signal(SIGUSR1, execute_handler);
 	while (1)
 	{
@@ -119,15 +122,25 @@ int		main(int argc, char **argv, char **envp)
 			if (!start_with_the_line(line, &data))
 				continue;
 		}
+
+		// system("leaks minishell");
+
 		// execute_command(&data);
 		printf(PURPLE);
 		printf("==============parsing end==============\n");
 		ft_putstr_fd(WHITE, 1);
-		execute_command(&data);
-		// free_all(&data);
-		system("leaks minishell");
-	}
 
+
+		// system("leaks minishell");
+
+		execute_command(&data);
+
+		system("leaks minishell");
+
+		free_all(&data);
+
+		// system("leaks minishell");
+	}
 
 	return (0);
 }

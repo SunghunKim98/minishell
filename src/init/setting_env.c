@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setting_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 03:13:25 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 10:28:51 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 12:52:40 by sungkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	parse_env_path(t_data *data, char **envp)
 {
 	int		i;
+	char	*p;
 
 	while (*envp && ft_strncmp(*envp, "PATH", 4))
 		++envp;
@@ -23,7 +24,11 @@ int	parse_env_path(t_data *data, char **envp)
 	data->env_path = ft_split((*envp) + 5, ':');
 	i = -1;
 	while (data->env_path[++i])
-		data->env_path[i] = ft_strjoin(data->env_path[i], "/");
+	{
+		p = data->env_path[i];
+		data->env_path[i] = ft_strjoin(p, "/");
+		free(p);
+	}
 	if (!(data->env_path))
 		return (FALSE);
 	return (TRUE);

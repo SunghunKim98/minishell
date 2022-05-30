@@ -14,20 +14,13 @@ char	*make_standard_line(char *line, t_data *p_data)
 	{
 		new_line = make_line_without_space(new_line, &start);
 		set_divider(new_line, start, &divider);
-
-		printf("[Before] new_line: %s\n", new_line);
-
 		if (!new_line[divider])
 			flag = 1;
 		new_line = trim_line(&start, divider, new_line, p_data);
-
-		printf("[After] new_line: %s\n", new_line);
-
 		if (!new_line)
 			return (0);
 		if (flag)
 			break ;
-
 	}
 	return (new_line);
 }
@@ -37,7 +30,6 @@ char	*make_line_without_space(char *line, int *start)
 	char	*new_line;
 
 	new_line = advanced_strdup(line);
-
 	while (check_if_sep(new_line[*start]))
 	{
 		new_line = trim_space_line(new_line, *start);

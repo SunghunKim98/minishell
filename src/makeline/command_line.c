@@ -11,19 +11,11 @@ void	get_command_from_line(char **command_arr, t_data *p_data)
 	while (++i < p_data->n_cmd)
 	{
 		one_command = convert_line_to_command(command_arr[i]);
-
-		// 이 위에서 뭔가 잘못...
-
-		int	k = -1;
-		while (one_command[++k])
-			printf("{%s}\n", one_command[k]);
-
 		j = -1;
 		while (one_command[++j])
 			set_command_data(one_command[j], &(p_data->cmd_lst[i]));
-
 	}
-	// double_array_free(one_command);
+	double_char_array_free(one_command);
 }
 
 char	**convert_line_to_command(char *line)

@@ -78,9 +78,7 @@ char	*trim_space_line(char *line, int start)
 		i++;
 	line_0 = advanced_strlcpy(line, start);
 	line_1 = advanced_strdup_no_free(line + i);
-
 	new_line = ft_strjoin(line_0, line_1);
-	// 여기서 line_0, line_1 free를 join에서 하는가? => 아닌 것 같다.
 	free(line);
 	free(line_0);
 	free(line_1);
