@@ -6,7 +6,7 @@
 /*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:09:41 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 12:57:14 by sungkim          ###   ########.fr       */
+/*   Updated: 2022/05/30 13:50:11 by sungkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ typedef struct s_data
 	int			**pipe_fd;
 	int			*pid;
     int			n_cmd;
+
+	char 		**now_cmd;
+	char		*now_path;
+
 	t_here		heredoc;
 	t_cmd		*cmd_lst;
 }		t_data;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 08:17:34 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/29 05:19:27 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 15:53:21 by sungkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,36 @@ void	wait_child_processes(t_data *data)
 
 int		execve_command(t_data *data, int i)
 {
-	char	**cmd;
-	char	*cmd_path;
+	// char	**cmd;
+	// char	*cmd_path;
 	int		fd[2];
 
-	cmd = to_arr(data->cmd_lst[i].args); // 명령어 + 옵션 들어있는 리스트 배열로 바꾸기
-	cmd_path = get_path(data->env_path, cmd[0]);
-	// printf("path done\n");
-	arrange_pipe_fd(data, cmd[0], i, fd); //dup2 함수 호출//문제여
-	// printf("pipe done\n");
-	if (is_builtin(cmd[0]))
-		exec_builtin(data, cmd, fd);
+	if (data->now_cmd)
+	{
+		double_char_array_free(data->now_cmd);
+		data->now_cmd = NULL;
+	}
+	if (data->now_path)
+	{
+		free(data->now_path);
+		data->now_path = NULL;
+	}
+
+
+	data->now_cmd = to_arr(data->cmd_lst[i].args); // 명령어 + 옵션 들어있는 리스트 배열로 바꾸기
+	data->now_path = get_path(data->env_path, data->now_cmd[0]);
+
+	arrange_pipe_fd(data, data->now_cmd[0], i, fd); //dup2 함수 호출//문제여
+	if (is_builtin(data->now_cmd[0]))
+		exec_builtin(data, data->now_cmd, fd);
 	else
 	{
 		kill(0, SIGUSR1);
-		// printf("%s | %s \n", cmd_path, cmd[0]);
-		execve(cmd_path, cmd, data->env); // todo: env 저장 변수 이름 맞추기 pipex에서 env 파싱 가져오기
+		// execve(cmd_path, cmd, data->env); // todo: env 저장 변수 이름 맞추기 pipex에서 env 파싱 가져오기
+
+		execve(data->now_path, data->now_cmd, data->env); // todo: env 저장 변수 이름 맞추기 pipex에서 env 파싱 가져오기
 	}
+
 	return (1);
 }
 
@@ -90,6 +103,9 @@ static void	go_execute(t_data *data, int i)
 
 void	execute_command(t_data *data)
 {
+	char	**cmd;
+	int		flag;
+
 	init_process(data);
 	if (data->n_cmd > 1)
 		init_pipe(data);
@@ -97,7 +113,11 @@ void	execute_command(t_data *data)
 		if (heredoc_main(data) == ERROR)
 			return ;
 	data->heredoc.seq = 0;
-	if (is_builtin(to_arr(data->cmd_lst[0].args)[0]) && (data->n_cmd == 1))
+	cmd = to_arr(data->cmd_lst[0].args);
+	flag = is_builtin(cmd[0]);
+	double_char_array_free(cmd);
+	cmd = NULL;
+	if (flag && (data->n_cmd == 1))
 		execve_command(data, 0);
 	else
 		go_execute(data, 0);

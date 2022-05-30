@@ -6,7 +6,7 @@
 /*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:08:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 13:06:24 by sungkim          ###   ########.fr       */
+/*   Updated: 2022/05/30 15:50:53 by sungkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,16 +130,38 @@ int		main(int argc, char **argv, char **envp)
 		printf("==============parsing end==============\n");
 		ft_putstr_fd(WHITE, 1);
 
-
-		// system("leaks minishell");
-
 		execute_command(&data);
 
-		system("leaks minishell");
+		if (data.now_cmd)
+		{
+			double_char_array_free(data.now_cmd);
+			data.now_cmd = NULL;
+		}
+		if (data.now_path)
+		{
+			free(data.now_path);
+			data.now_path = NULL;
+		}
+
 
 		free_all(&data);
 
-		// system("leaks minishell");
+		system("leaks minishell");
+
+		// int j = -1;
+		// t_args *now;
+		// t_args *del;
+
+		// while (++j < data.n_cmd)
+		// {
+		// 	now = data.cmd_lst[j].args;
+		// 	free(now->str);
+		// 	del = now;
+		// 	now = now->next;
+		// 	free(del);
+		// }
+
+
 	}
 
 	return (0);
