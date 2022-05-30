@@ -12,9 +12,11 @@ void	get_command_from_line(char **command_arr, t_data *p_data)
 	{
 		one_command = convert_line_to_command(command_arr[i]);
 
-		// int	k = -1;
-		// while (one_command[++k])
-		// 	printf("{%s}\n", one_command[k]);
+		// 이 위에서 뭔가 잘못...
+
+		int	k = -1;
+		while (one_command[++k])
+			printf("{%s}\n", one_command[k]);
 
 		j = -1;
 		while (one_command[++j])
@@ -27,62 +29,62 @@ void	get_command_from_line(char **command_arr, t_data *p_data)
 char	**convert_line_to_command(char *line)
 {
 	char	**command;
-	char	*p;
-	char	*tmp;
-	int		count;
+	int		i;
+	int		prev;
+	int		post;
 
-	p = line;
-	count = 0;
-	while (*p)
-		if (*(p++) == '\"')
-			count++;
-
-	command = (char**)malloc(sizeof(char*) * (count / 2 + 1));
-	p = line;
-	tmp = line;
-	count = 0;
-	while (*p)
+	command = make_cmd_lst(line);
+	i = -1;
+	prev = 0;
+	post = 0;
+	while (check_if_quote(line, &post))
 	{
-		if (*p == '\"')
-		{
-			tmp = ++p;
-			while (*p != '\"')
-				p++;
-			command[count++] = make_str_by_pointer(tmp, p++);
-		}
-		if (*p == '>' || *p == '<')
-			deal_with_redirection(command, count++, &p);
+		command[++i] = malloc_single_char(post - prev - 1);
+		ft_strlcpy(command[i], line + prev + 1, post++ - prev);
+		prev = post;
 	}
-	command[count] = 0;
 	return (command);
 }
 
-char	*make_str_by_pointer(char *start, char *end)
+char	**make_cmd_lst(char *line)
 {
-	char	*result;
-	int		i;
+	int		count;
+	int		idx;
+	char	**command;
 
-	if (start == end)
-		return (0);
-	result = (char*)malloc(sizeof(char) * (end - start + 1));
-	i = -1;
-	while (++i < end - start)
-		result[i] = *(start + i);
-	result[i] = 0;
-	return result;
+	count = 0;
+	idx = 0;
+	while (check_if_quote(line, &idx))
+	{
+		idx++;
+		count++;
+	}
+	command = malloc_double_char(count);
+	return (command);
 }
 
-void	deal_with_redirection(char **command, int idx, char **p)
+int		check_if_quote(char *line, int *idx)
 {
-	char	*start;
-	int		count;
-
-	printf("here here\n");
-
-	start = *p;
-	count = 0;
-	while (count < 2)
-		if (*((*p)++) == '\"')
-			count++;
-	command[idx] = make_str_by_pointer(start, *p - 1);
+	while (line[*idx])
+	{
+		if (line[*idx] == '\'')
+		{
+			++(*idx);
+			while (line[*idx] != '\'' && line[*idx] != 0)
+				(*idx)++;
+			break ;
+		}
+		else if (line[*idx] == '\"')
+		{
+			++(*idx);
+			while (line[*idx] != '\"' && line[*idx] != 0)
+				(*idx)++;
+			break ;
+		}
+		else
+			(*idx)++;
+	}
+	if (line[*idx] == '\'' || line[*idx] == '\"')
+		return (TRUE);
+	return (FALSE);
 }

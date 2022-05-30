@@ -165,7 +165,7 @@ void	set_divider(char *line, int start, int *divider);
 /* line_parse_2.c */
 char	*trim_line(int *start, int divider, char *line, t_data *p_data);
 char	**separate_by_div(char *line, int start, int divider);
-char	*fillin_buf(char *origin, t_data *p_data);
+char	*transform_line(char *origin, t_data *p_data);
 char	*join_strings(char *line, char **separator, int *start);
 
 /* line_parse_3.c */
@@ -178,6 +178,10 @@ char	*find_pointer_for_separation(char *start);
 char	*strdup_with_pointer(char *start, char *end);
 int		check_if_sep(char ch);
 char	*trim_space_line(char *line, int start);
+
+/* error_utils.c */
+char	*error_util0();
+void	error_util1();
 
 /* set_utils.c */
 void	set_command_data(char *command, t_cmd *cmd);
@@ -199,24 +203,28 @@ void	double_char_array_free(char **arr);
 /* command_line.c */
 void	get_command_from_line(char **command_arr, t_data *p_data);
 char	**convert_line_to_command(char *line);
-void	deal_with_redirection(char **command, int idx, char **p);
-char	*make_str_by_pointer(char *start, char *end);
+char	**make_cmd_lst(char *line);
+int		check_if_quote(char *line, int *idx);
 
 
 /* pipe_parse.c */
-void	if_pipe_opened(char **line);
+int		check_pipe_opened(char **line);
+int		check_pipe_can_get_input(char *line);
+char	*get_more_line(void);
+int		if_pipe_opened(char *line);
 
 
 
-/*  */
-
-/*  */
-
-
+/* main.c */
 
 int		line_parsing(char *line, t_data *p_data);
 char	select_quoto_type(char *buffer, int length);
 char	*make_buffer(void);
+int		start_with_the_line(char *line, t_data *p_data);
+
+
+/*  */
+
 
 //수현 추가
 int	export(t_data *data, char **cmd, int *fd);

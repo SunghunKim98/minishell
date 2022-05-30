@@ -49,6 +49,8 @@ t_cmd	*init_cmd_lst(t_data *p_data)
 	t_cmd	*p;
 
 	p = (t_cmd*)malloc(sizeof(t_cmd) * (p_data->n_cmd));
+	if (!p)
+		exit(-1);
 	i = -1;
 	while (++i < p_data->n_cmd)
 	{
