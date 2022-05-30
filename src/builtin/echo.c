@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 08:58:09 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 20:32:10 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 07:04:57 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	is_n_option(char *op)
 
 	if (ft_strncmp(op, "-n", 2))
 		return (FALSE);
-	i = -1;
+	i = 1;
 	while (op[++i])
 		if (op[i] != 'n')
 			return (FALSE);
@@ -40,13 +40,16 @@ static void	echo_n(char **words, int word_cnt, int *fd)
 	int	i;
 
 	i = 1;
+	if (!words[2])
+		return ;
 	while (is_n_option(words[++i]))
 		;
-	while (words[++i])
+	while (words[i])
 	{
 		ft_putstr_fd(words[i], fd[WRITE]);
 		if (i < (word_cnt - 1))
 			ft_putstr_fd(" ", fd[WRITE]);
+		i++;
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:53:21 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 21:02:17 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 08:08:28 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 extern int	g_exit_code;
 
-void	add_new_env(t_data *data, char **env)
+void	add_new_env(t_data *data, char *env)
 {
 	int		len;
 	int		i;
 	char	**new_env;
-	char	*key_with_equal;
 	char	**tmp;
 
+	(void)env;
 	len = -1;
 	while (data->env[++len])
 		;
@@ -31,9 +31,7 @@ void	add_new_env(t_data *data, char **env)
 	i = -1;
 	while (++i < len)
 		new_env[i] = ft_strdup(data->env[i]);
-	key_with_equal = ft_strjoin(env[0], "=");
-	new_env[i] = ft_strdup(ft_strjoin(key_with_equal, env[1]));
-	free(key_with_equal);
+	new_env[i] = ft_strdup(env);
 	tmp = data->env;
 	data->env = new_env;
 	double_char_array_free(tmp);
@@ -68,7 +66,7 @@ static void	save_env(t_data *data, char **env, char **cmd, int i)
 	key_len = ft_strlen(env[0]);
 	replace_idx = get_env_index(data, env[0], key_len);
 	if (replace_idx < 0)
-		add_new_env(data, env);
+		add_new_env(data, cmd[i]);
 	else
 		replace_env(data, cmd[i], replace_idx);
 }

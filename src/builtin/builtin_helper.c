@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 17:43:55 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 19:20:12 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 07:23:21 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	**env_dict(char *s)
 	if (key_len == 1)
 		env_dict[0][0] = '\0';
 	else
-		ft_strlcpy(env_dict[0], s, (key_len));
+		ft_strlcpy(env_dict[0], s, key_len);
 	if (equal)
 		env_dict[1] = ft_strdup(equal + 1);
 	else
