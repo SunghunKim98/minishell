@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 08:17:34 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 18:06:28 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 18:51:26 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,12 @@ int		execve_command(t_data *data, int i)
 	else
 	{
 		kill(0, SIGUSR1);
-		execve(data->now_path, data->now_cmd, data->env); // todo: env 저장 변수 이름 맞추기 pipex에서 env 파싱 가져오기
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		execve(data->now_path, data->now_cmd, data->env);
+		error_message(data->now_cmd[0], "command not found");
+		exit(127);
 	}
-
 	return (1);
 }
 
