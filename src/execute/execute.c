@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 08:17:34 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 15:53:21 by sungkim          ###   ########.fr       */
+/*   Updated: 2022/05/30 18:06:28 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,10 @@ void	wait_child_processes(t_data *data)
 	while (TRUE)
 	{
 		ret = waitpid(0, &status, 0); // 더 이상 기다릴 프로세스가 없으면 -1을 반환함.
-		// printf("waiting..");
+		if (pid_last == ret) // 128 + N으로 시그널 발생 시 exit code 설정됨
+			g_exit_code = WEXITSTATUS(status); // 정상 종료 시 (-> sigchld) exit code 받아오기 매크로 사용해도 되지?
 		if (ret == -1)
 			break ;
-		if (pid_last == ret && g_exit_code > 128) // 128 + N으로 시그널 발생 시 exit code 설정됨
-			g_exit_code = WEXITSTATUS(status); // 정상 종료 시 (-> sigchld) exit code 받아오기 매크로 사용해도 되지?
 	}
 }
 
@@ -69,8 +68,6 @@ int		execve_command(t_data *data, int i)
 	else
 	{
 		kill(0, SIGUSR1);
-		// execve(cmd_path, cmd, data->env); // todo: env 저장 변수 이름 맞추기 pipex에서 env 파싱 가져오기
-
 		execve(data->now_path, data->now_cmd, data->env); // todo: env 저장 변수 이름 맞추기 pipex에서 env 파싱 가져오기
 	}
 
@@ -93,10 +90,13 @@ static void	go_execute(t_data *data, int i)
 	/* 부모 프로세스 */
 	else if (data->pid[i] > 0)
 	{
-		signal(SIGINT, SIG_IGN); // ignore sigint signal
-		//todo: ./minishell 커맨드 들어왔을 때sigusr1 이해해서 무시하는 부분 추가
+		signal(SIGINT, SIG_IGN);
 		if (i == data->n_cmd - 1)
+		{
 			wait_child_processes(data);
+			if (!ft_strcmp(data->cmd_lst[i].args->str, "exit"))
+				exit(g_exit_code);
+		}
 		go_execute(data, i + 1); // 재귀적으로 들어가서 다음 명령어 호출
 	}
 }
