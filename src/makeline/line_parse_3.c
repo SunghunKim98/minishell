@@ -3,7 +3,9 @@
 int		check_char_special(char ch)
 {
 	if (ch == '\"' || ch == '\'' || ch == ' ' || ch == '|'
-		|| ch == '\0' || ch == '>' || ch == '<')
+		|| ch == '\0' || ch == '>' || ch == '<' || ch < 48
+		|| (ch >= 58 && ch <= 64) || (ch >= 91 && ch <= 96)
+		|| ch > 122)
 		return (1);
 	else
 		return (0);

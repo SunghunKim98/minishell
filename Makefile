@@ -41,7 +41,7 @@ SRC		=	main.c builtin/builtin_helper.c builtin/builtin.c builtin/cd.c builtin/ec
 			makeline/command_line.c makeline/line_init.c makeline/line_parse_1.c \
 			makeline/line_parse_2.c makeline/line_parse_3.c makeline/line_parse_4.c \
 			makeline/pipe_parse.c utility/advanced_utils.c utility/free_utils.c \
-			utility/malloc_utils.c utility/set_utils.c utility/set_utils_2.c \
+			utility/malloc_utils.c utility/set_utils.c utility/set_utils_2.c utility/error_utils.c \
 
 SRCS	= $(addprefix $(SRCS_DIR), $(SRC))
 OBJS	= $(SRCS:.c=.o)
