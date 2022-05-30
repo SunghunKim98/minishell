@@ -6,7 +6,7 @@
 /*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:08:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 18:45:29 by sungkim          ###   ########.fr       */
+/*   Updated: 2022/05/30 19:18:57 by sungkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*make_buffer(void)
 
 	new_buffer = (char *)malloc(sizeof(char) * BUFF_SIZE);
 	if (new_buffer == NULL)
-		exit(-1);
+		exit(1);
 	return (new_buffer);
 }
 

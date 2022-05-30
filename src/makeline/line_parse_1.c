@@ -1,5 +1,16 @@
-#include "../../include/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   line_parse_1.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/30 19:04:39 by sungkim           #+#    #+#             */
+/*   Updated: 2022/05/30 19:05:46 by sungkim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../../include/minishell.h"
 
 char	*make_standard_line(char *line, t_data *p_data)
 {
@@ -36,11 +47,11 @@ char	*make_line_without_space(char *line, int *start)
 		while (check_if_sep(new_line[*start]))
 		{
 			if (new_line[*start] == ' ' || !new_line[*start])
-				break;
+				break ;
 			(*start)++;
 		}
 		if (!new_line[*start])
-			break;
+			break ;
 	}
 	return (new_line);
 }
@@ -57,16 +68,16 @@ void	set_divider(char *line, int start, int *divider)
 	{
 		p = line[start];
 		if (p == '\'' && flag_dq == 0 && flag_sq)
-            flag_sq = 0;
-        else if ((p == '\'' && flag_dq == 0 && !flag_sq))
-            flag_sq = 1;
-        else if (p == '\"' && flag_sq == 0 && flag_dq)
-            flag_dq = 0;
-        else if (p == '\"' && flag_sq == 0 && !flag_dq)
-            flag_dq = 1;
+			flag_sq = 0;
+		else if ((p == '\'' && flag_dq == 0 && !flag_sq))
+			flag_sq = 1;
+		else if (p == '\"' && flag_sq == 0 && flag_dq)
+			flag_dq = 0;
+		else if (p == '\"' && flag_sq == 0 && !flag_dq)
+			flag_dq = 1;
 		if (p == ' ' || p == '|' || p == '>' || p == '<')
 			if (!flag_sq && !flag_dq)
-				break;
+				break ;
 		start++;
 	}
 	*divider = start;

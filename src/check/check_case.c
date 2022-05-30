@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_case.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/30 18:57:02 by sungkim           #+#    #+#             */
+/*   Updated: 2022/05/30 18:58:41 by sungkim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-int		check_case_pipe(char *p)
+int	check_case_pipe(char *p)
 {
 	if (*p == '|' && *(p + 1) == '|')
 		return (deal_error(0));
-	return SUCCESS;
+	return (SUCCESS);
 }
 
-int		check_case_redi(char *p)
+int	check_case_redi(char *p)
 {
-	char *q;
-	int	redi_count;
+	char	*q;
+	int		redi_count;
 
 	if (*p == '>' || *p == '<')
 	{
@@ -28,35 +40,35 @@ int		check_case_redi(char *p)
 		if (!(*q))
 			return (deal_error(1));
 	}
-	return SUCCESS;
+	return (SUCCESS);
 }
 
-int		check_case_other(char *p)
+int	check_case_other(char *p)
 {
 	if (*p == ';' || *p == '\\')
 		return (deal_error(2));
-	return SUCCESS;
+	return (SUCCESS);
 }
 
-int		check_different_case(char *p)
+int	check_different_case(char *p)
 {
 	if (!check_case_pipe(p))
-		return FAIL;
+		return (FAIL);
 	else if (!check_case_redi(p))
-		return FAIL;
+		return (FAIL);
 	else if (!check_case_other(p))
-		return FAIL;
+		return (FAIL);
 	else
-		return TRUE;
+		return (TRUE);
 }
 
-int		check_quoto_closed(int flag_sq, int flag_dq)
+int	check_quoto_closed(int flag_sq, int flag_dq)
 {
 	if (!flag_sq && !flag_dq)
-		return SUCCESS;
+		return (SUCCESS);
 	else
 	{
 		printf("There's unclose quote\n");
-		return FAIL;
+		return (FAIL);
 	}
 }

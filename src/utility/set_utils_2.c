@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_utils_2.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/30 19:19:56 by sungkim           #+#    #+#             */
+/*   Updated: 2022/05/30 19:23:31 by sungkim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-extern int g_exit_code;
+extern int	g_exit_code;
 
 void	set_env(char **line, int *i, t_data *p_data)
 {
@@ -29,6 +41,12 @@ void	set_env(char **line, int *i, t_data *p_data)
 	free(tmp);
 }
 
+static void	init_var(int *i, char **tmp, char *p)
+{
+	*i = -1;
+	*tmp = p;
+}
+
 char	**set_command_with_line(char *line, t_data *p_data)
 {
 	char	**command;
@@ -39,8 +57,7 @@ char	**set_command_with_line(char *line, t_data *p_data)
 
 	p = line;
 	command = malloc_double_char(p_data->n_cmd);
-	i = -1;
-	tmp = p;
+	init_var(i, &tmp, p);
 	while (1)
 	{
 		if (*p == '|' || *p == 0)

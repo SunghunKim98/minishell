@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 08:46:58 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/28 22:05:12 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:24:34 by sungkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_print_double_str(char **str)
 	ft_putendl_fd("#######################################", 1);
 }
 
-int		get_double_string_len(char **str)
+int	get_double_string_len(char **str)
 {
 	int	i;
 

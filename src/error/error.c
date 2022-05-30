@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 06:13:22 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/23 17:18:13 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 18:59:23 by sungkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	malloc_error(void *addr)
 	if (addr == NULL)
 	{
 		strerror(errno);
-		exit(1); // reference에서 왜 2? 빌트인 아닌ㄴ디
+		exit(1);
 	}
 }
 
