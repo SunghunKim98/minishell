@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_parse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 19:10:23 by sungkim           #+#    #+#             */
-/*   Updated: 2022/05/30 19:18:57 by sungkim          ###   ########.fr       */
+/*   Updated: 2022/05/30 19:38:19 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	check_pipe_opened(char **line)
 		return (0);
 	if (check_pipe_can_get_input(*line))
 	{
-		// 여기서 무슨 시그널을 줌!
 		extend_line = get_more_line();
 		if (!extend_line)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_utils_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 19:19:56 by sungkim           #+#    #+#             */
-/*   Updated: 2022/05/30 19:23:31 by sungkim          ###   ########.fr       */
+/*   Updated: 2022/05/30 19:34:18 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	**set_command_with_line(char *line, t_data *p_data)
 
 	p = line;
 	command = malloc_double_char(p_data->n_cmd);
-	init_var(i, &tmp, p);
+	init_var(&i, &tmp, p);
 	while (1)
 	{
 		if (*p == '|' || *p == 0)

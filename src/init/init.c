@@ -6,14 +6,17 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 00:59:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 19:03:16 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:31:51 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+extern int	g_exit_code;
+
 void	init_all(t_data *data)
 {
+	g_exit_code = 0;
 	data->env = NULL;
 	data->env_path = NULL;
 	data->pipe_fd = NULL;

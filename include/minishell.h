@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:09:41 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 19:21:17 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:43:07 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,23 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <errno.h>
-
-// 성훈 추가
 # define FAIL 0
+
 # define SUCCESS 1
-
-#define BUFF_SIZE 10000
-
-// -------------------
-
+# define BUFF_SIZE 10000
 # define TRUE 1
 # define FALSE 0
 # define ERROR -1
 # define READ 0
 # define WRITE 1
 
-# define _CANT_EXEC 126 // 파일이 존재하지만 실행 불가
-# define _NO_COMMAND 127 // 존재하지 않는 파일 또는 디렉토리
+# define _CANT_EXEC 126
+# define _NO_COMMAND 127
 
-# define R_S_REDIRECT 1 // >
-# define R_D_REDIRECT 2 // >>
-# define L_S_REDIRECT 3 // <
-# define L_D_REDIRECT 4 // <<
+# define R_S_REDIRECT 1
+# define R_D_REDIRECT 2
+# define L_S_REDIRECT 3
+# define L_D_REDIRECT 4
 
 typedef struct s_args
 {
@@ -63,14 +58,14 @@ typedef struct s_redi
 typedef struct s_cmd
 {
 	t_args	*args;
-	t_redi *redi;
+	t_redi	*redi;
 }			t_cmd;
 
 typedef struct s_here
 {
-	int		*pipe_read;
-	int		seq; // 현재 sequence
-	int		n_here; // 전체 개수
+	int	*pipe_read;
+	int	seq;
+	int	n_here;
 }			t_here;
 
 typedef struct s_data
@@ -83,14 +78,14 @@ typedef struct s_data
 	int			*pid;
 	int			n_cmd;
 	char		*pwd;
-	char 		**now_cmd;
+	char		**now_cmd;
 	char		*now_path;
 	t_here		heredoc;
 	t_cmd		*cmd_lst;
 }		t_data;
 
 /*parse.c*/
-int	parsing(char *line, t_data *data);
+int		parsing(char *line, t_data *data);
 void	main_handler(int signo);
 
 /*error*/
@@ -100,10 +95,10 @@ void	error_message_arg(char *cmd, char *arg, char *msg);
 
 /*execute*/
 /*pipe.c*/
-void   arrange_pipe_fd(t_data *data, char *cmd, int i, int fd[]);
-void   execute_command(t_data *data);
-int    execve_command(t_data *data, int i);
-void   wait_child_processes(t_data *data);
+void	arrange_pipe_fd(t_data *data, char *cmd, int i, int fd[]);
+void	execute_command(t_data *data);
+int		execve_command(t_data *data, int i);
+void	wait_child_processes(t_data *data);
 
 void	setting_env_things(t_data *data, char **envp);
 int		ft_strcmp(const char *s1, const char *s2);
@@ -123,15 +118,14 @@ void	heredoc_handler(int signo);
 int		cd(t_data *data, char *path);
 int		echo(char **words, int *fd);
 int		pwd(t_data *data, int *fd);
-int		go_exit(t_data *data, char **cmd); // unsigned char 로 내보내야 함
+int		go_exit(t_data *data, char **cmd);
 int		ft_isspace(char c);
 
-int	heredoc_main(t_data *data);
-int	heredoc_count(t_data *data);
+int		heredoc_main(t_data *data);
+int		heredoc_count(t_data *data);
 
-// ------- 성훈 추가 ------- //
 /* errorcheck.c */
-int 	line_error_check(char *line);
+int		line_error_check(char *line);
 int		check_error_case_0(char *line);
 int		check_error_case_1(char *line);
 int		deal_error(int i);
@@ -183,8 +177,8 @@ int		check_if_sep(char ch);
 char	*trim_space_line(char *line, int start);
 
 /* error_utils.c */
-char	*error_util0();
-void	error_util1();
+char	*error_util0(void);
+void	error_util1(void);
 
 /* set_utils.c */
 void	set_command_data(char *command, t_cmd *cmd);
@@ -209,27 +203,17 @@ char	**convert_line_to_command(char *line);
 char	**make_cmd_lst(char *line);
 int		check_if_quote(char *line, int *idx);
 
-
 /* pipe_parse.c */
 int		check_pipe_opened(char **line);
 int		check_pipe_can_get_input(char *line);
 char	*get_more_line(void);
 int		if_pipe_opened(char *line);
 
-
-
 /* main.c */
-
 int		line_parsing(char *line, t_data *p_data);
 char	select_quoto_type(char *buffer, int length);
 char	*make_buffer(void);
 int		start_with_the_line(char *line, t_data *p_data);
-
-
-/*  */
-
-
-//수현 추가
 int		export(t_data *data, char **cmd, int *fd);
 int		env(t_data *data, int *fd);
 int		print_export(t_data *data, int *fd);
@@ -245,12 +229,6 @@ void	free_all(t_data *data);
 void	clear_cmd_args(t_args *args);
 void	clear_cmd_redi(t_redi *redi);
 void	free_now_cmd(t_data *data);
-
-
-# define PURPLE "\033[0;35m"
-# define YELLOW "\033[0;33m"
-# define WHITE "\033[0;37m"
-# define RESET "\033[0m"
-//성훈 추가
+void	unclosed_pipe_handler(int signo);
 
 #endif
