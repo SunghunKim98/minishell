@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:00:37 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/08 15:24:59 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/05/30 10:25:27 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (0);
 	ft_strlcpy(newstr, s1, s1_len + 1);
 	ft_strlcat(newstr, s2, s1_len + s2_len + 1);
-	// free(s1);
-	// free(s2); // 이거 해줘야겠지?
+	// free((void *)s1);
+	// free((void *)s2); // 이거 해줘야겠지? 웅 여기서 릭 오지게 남
 	return (newstr);
 }

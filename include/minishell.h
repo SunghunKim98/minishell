@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:09:41 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/29 05:21:08 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 10:08:33 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,10 @@ char	**set_data_env(int n_env, char **envp);
 int		get_double_string_len(char **str);
 int		get_env_index(t_data *data, char *key, int key_len);
 int	unset(t_data *data, char **cmd);
+void	free_all(t_data *data);
+void	clear_cmd_args(t_args *args);
+void	clear_cmd_redi(t_redi *redi);
+
 
 # define PURPLE "\033[0;35m"
 # define YELLOW "\033[0;33m"

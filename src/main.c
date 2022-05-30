@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:08:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/29 05:23:19 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 10:50:38 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int		main(int argc, char **argv, char **envp)
 	p = (data.env);
 	while (p[++i])
 		printf("env: %s\n", p[i]);
-	
+
 	i = -1;
 
 	p = (data.env_path);
@@ -156,7 +156,8 @@ int		main(int argc, char **argv, char **envp)
 		printf("==============parsing end==============\n");
 		ft_putstr_fd(WHITE, 1);
 		execute_command(&data);
-		// system("leaks minishell");
+		// free_all(&data);
+		system("leaks minishell");
 	}
 
 
