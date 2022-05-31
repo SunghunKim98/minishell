@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 19:02:57 by sungkim           #+#    #+#             */
-/*   Updated: 2022/05/30 20:41:45 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/31 18:45:26 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ char	**convert_line_to_command(char *line)
 	post = 0;
 	while (check_if_quote(line, &post))
 	{
-		if ((line[post] == '\"' && line[prev] != '\"') ||
-			(line[post] == '\'' && line[prev] != '\''))
+		if ((line[post] == '\"' && line[prev] != '\"')
+			|| (line[post] == '\'' && line[prev] != '\''))
 			prev--;
 		command[++i] = malloc_single_char(post - prev - 1);
 		ft_strlcpy(command[i], line + prev + 1, post++ - prev);

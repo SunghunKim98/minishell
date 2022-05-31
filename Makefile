@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+         #
+#    By: soahn <soahn@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/21 00:17:03 by soahn             #+#    #+#              #
-#    Updated: 2022/05/30 09:22:33 by soahn            ###   ########.fr        #
+#    Updated: 2022/05/31 18:46:19 by soahn            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,13 +15,8 @@ NAME	= minishell
 CC		= gcc
 CFLAGS	= -Wall -Werror -Wextra
 
-# LDFLAGS = -L${HOME}/.brew/opt/readline/lib
-# CPPFLAGS= -I${HOME}/.brew/opt/readline/include
-
-# soahn home
-LDFLAGS = -L/usr/local/opt/readline/lib
-CPPFLAGS= -I/usr/local/opt/readline/include
-
+LDFLAGS = -L${HOME}/.brew/opt/readline/lib
+CPPFLAGS= -I${HOME}/.brew/opt/readline/include
 
 AR 		= ar rcs
 RM		= rm -f
