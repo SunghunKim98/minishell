@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_utils_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 19:19:56 by sungkim           #+#    #+#             */
-/*   Updated: 2022/05/30 19:34:18 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/30 17:42:41 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ char	**set_command_with_line(char *line, t_data *p_data)
 		}
 		command[i] = malloc_single_char(post - prev);
 		ft_strlcpy(command[i], line + prev, (post - prev + 1));
-		prev = post;
 		post += 1;
+		prev = post;
 	}
 	return (command);
 }
