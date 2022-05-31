@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 03:13:25 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 19:05:08 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/31 19:12:07 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	parse_env_path(t_data *data, char **envp)
 	int		i;
 	char	*p;
 
+	if (data->env_path)
+		double_char_array_free(data->env_path);
 	while (*envp && ft_strncmp(*envp, "PATH", 4))
 		++envp;
 	if (!(*envp))

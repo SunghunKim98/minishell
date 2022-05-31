@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soahn <soahn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 17:53:21 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 08:08:28 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/31 19:16:35 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,11 @@ int	export(t_data *data, char **cmd, int *fd)
 			g_exit_code = 1;
 		}
 		else
+		{
 			save_env(data, env, cmd, i);
+			if (!ft_strcmp(env[0], "PATH"))
+				parse_env_path(data, data->env);
+		}
 		double_char_array_free(env);
 	}
 	return (g_exit_code);

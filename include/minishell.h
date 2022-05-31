@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:09:41 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 19:43:07 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/31 19:07:18 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,5 +230,6 @@ void	clear_cmd_args(t_args *args);
 void	clear_cmd_redi(t_redi *redi);
 void	free_now_cmd(t_data *data);
 void	unclosed_pipe_handler(int signo);
+int		parse_env_path(t_data *data, char **envp);
 
 #endif

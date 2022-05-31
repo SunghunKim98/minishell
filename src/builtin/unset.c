@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 21:24:22 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 19:25:22 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/31 19:15:21 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ int	unset(t_data *data, char **cmd)
 			g_exit_code = 1;
 		}
 		else
+		{
 			unset_env(data, key, key_len);
+			if (!ft_strcmp(key, "PATH"))
+				parse_env_path(data, data->env);
+		}
 	}
 	return (g_exit_code);
 }
