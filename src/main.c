@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:08:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/31 18:52:16 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/31 19:33:32 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	t_data	data;
 
-	if (!argc || !argv)
-		return (0);
-	init_all(&data);
-	setting_env_things(&data, envp);
-	signal(SIGUSR1, execute_handler);
+	init_all(&data, argc, argv, envp);
 	while (1)
 	{
 		signal(SIGINT, main_handler);
@@ -94,7 +90,6 @@ int	main(int argc, char **argv, char **envp)
 			free_now_cmd(&data);
 			free_all(&data);
 		}
-		// system("leaks minishell");
 	}
 	return (0);
 }

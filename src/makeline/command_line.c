@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 19:02:57 by sungkim           #+#    #+#             */
-/*   Updated: 2022/05/31 18:45:26 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/31 20:04:02 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@ void	get_command_from_line(char **command_arr, t_data *p_data)
 		one_command = convert_line_to_command(command_arr[i]);
 		j = -1;
 		while (one_command[++j])
+		{
+			if (!one_command[j][0])
+				break ;
 			set_command_data(one_command[j], &(p_data->cmd_lst[i]));
+		}
 		double_char_array_free(one_command);
 	}
 }

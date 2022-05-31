@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 00:59:46 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/30 19:31:51 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/31 19:34:37 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 extern int	g_exit_code;
 
-void	init_all(t_data *data)
+void	init_all(t_data *data, int argc, char **argv, char **envp)
 {
+	if (!argc || !argv)
+		exit(0);
 	g_exit_code = 0;
 	data->env = NULL;
 	data->env_path = NULL;
@@ -26,6 +28,8 @@ void	init_all(t_data *data)
 	data->now_cmd = NULL;
 	data->now_path = NULL;
 	data->pwd = getcwd(NULL, 0);
+	setting_env_things(data, envp);
+	signal(SIGUSR1, execute_handler);
 }
 
 static void	free_cmd(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: soahn <soahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:09:41 by soahn             #+#    #+#             */
-/*   Updated: 2022/05/31 19:07:18 by soahn            ###   ########.fr       */
+/*   Updated: 2022/05/31 19:34:05 by soahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	fork_process(t_data *data, int i);
 void	redirection(t_data *data, int i, int *fd);
 int		is_builtin(char *cmd);
 void	exec_builtin(t_data *data, char **cmd, int *fd);
-void	init_all(t_data *data);
+void	init_all(t_data *data, int argc, char **argv, char **envp);
 void	execute_handler(int signo);
 void	heredoc_handler(int signo);
 
